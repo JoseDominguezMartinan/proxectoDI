@@ -1,0 +1,8 @@
+GtkWindow {
+    background-color: #0000ff;
+}
+
+GtkButton {
+    color: red;
+    background: #00ff00;
+}

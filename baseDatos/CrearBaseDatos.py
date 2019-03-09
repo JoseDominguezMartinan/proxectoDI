@@ -5,14 +5,14 @@ bbdd: Connection
 cursor: Cursor
 
 class metodosBase:
-    def conectar():
+    def conectar(self):
 
         bbdd = dbapi2.connect("gestionAplicacion.dat")
         cursor = bbdd.cursor()
         # Este código de creación da base de datos. Executar só unha vez
 
 
-    def crear_tablas():
+    def crear_tablas(self):
         try:
             cursor.execute("""create table if not exists clientes (dni varchar primary key,nomeCompleto varchar(100),
             telefono varchar(12), direccion varchar(60),codPostal varchar(8)""") #Comilla triple
@@ -33,7 +33,7 @@ class metodosBase:
 
     #metodos para insertar datos en cada una de las tablas
 
-    def insertar_datos_clientes(dni, nome, telefono, direccion, codPostal):
+    def insertar_datos_clientes(self,dni, nome, telefono, direccion, codPostal):
 
         try:
             cursor.execute("""insert into clientes (dni, nome, telefono, direccion, codPostal) values (?,?,?,?,?)""", (dni, nome, telefono, direccion, codPostal))
@@ -43,7 +43,7 @@ class metodosBase:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
 
-    def insertar_datos_coches(matricula, marca, modelo, km, ano, precio, clase):
+    def insertar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase):
         try:
             cursor.execute("""insert into coches (matricula, marca, modelo, 
             kilometraje, ano, precio, clase) values (?,?,?,?,?, ?, ?)""", (matricula, marca, modelo, km, ano, precio, clase))
@@ -53,7 +53,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
-    def insertar_datos_ventas(matricula, dni, fecha, compVend):
+    def insertar_datos_ventas(self,matricula, dni, fecha, compVend):
         try:
             cursor.execute("""insert into ventas (matricula, dni, fecha, compVend) values (?,?,?,?)""", (matricula, dni, fecha, compVend))
 
@@ -62,7 +62,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
-    def insertar_datos_usuarios(id, contrasinal):
+    def insertar_datos_usuarios(self,id, contrasinal):
         try:
             cursor.execute("""insert into usuarios (id, contrasinal) values (?,?)""", (id, contrasinal))
 
@@ -73,7 +73,7 @@ class metodosBase:
 
     #metodos para borrar datos en cada una de las tablas
 
-    def borrar_datos_clientes(dni):
+    def borrar_datos_clientes(self,dni):
 
         try:
             cursor.execute("""delete from clientes where dni=(?)""", dni)
@@ -82,7 +82,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroBorrado:
             print("Erro no borrado de datos: " + str(erroBorrado))
 
-    def borrar_datos_coches(matricula):
+    def borrar_datos_coches(self,matricula):
         try:
             cursor.execute("""delete from coches where matricula=(?)""", matricula)
 
@@ -91,7 +91,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroBorrado:
             print("Erro no borrado de datos: " + str(erroBorrado))
 
-    def borrar_datos_ventas(matricula, dni):
+    def borrar_datos_ventas(self,matricula, dni):
         try:
             cursor.execute("""delete from ventas where matricula=(?) and dni=(?)""", (matricula, dni))
 
@@ -100,7 +100,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroBorrado:
             print("Erro no borrado de datos: " + str(erroBorrado))
 
-    def borrar_datos_usuarios(id):
+    def borrar_datos_usuarios(self,id):
         try:
             cursor.execute("""delete from usuarios where id=(?)""",id)
             bbdd.commit()
@@ -109,7 +109,7 @@ class metodosBase:
             print("Erro no borrado de datos: "+str(erroBorrado))
 
     #metodos para modificar os datos en cada unha das taboas
-    def modificar_datos_clientes(dni, nome, telefono, direccion, codPostal):
+    def modificar_datos_clientes(self,dni, nome, telefono, direccion, codPostal):
 
         try:
             cursor.execute("""update coches set dni=?, nome=?, telefono=?, direccion=?, codPostal=? where dni=?""", (dni, nome, telefono, direccion, codPostal, dni))
@@ -118,7 +118,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
-    def modificar_datos_coches(matricula, marca, modelo, km, ano, precio, clase):
+    def modificar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase):
         try:
             cursor.execute("""update coches set matricula=?, marca=?, modelo=?, kilometraje=?, 
             ano=?, precio=?, clase=? where matricula=? """, (matricula, marca, modelo, km, ano, precio, clase, matricula))
@@ -128,7 +128,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
-    def modificar_datos_ventas(matricula, dni, fecha, compVend):
+    def modificar_datos_ventas(self,matricula, dni, fecha, compVend):
         try:
             cursor.execute("""update ventas set matricula=?, dni=?, fecha=?, compVend=? where matricula=? and dni=?""", (matricula, dni, fecha, compVend, matricula, dni))
 
@@ -137,7 +137,7 @@ class metodosBase:
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
-    def modificar_datos_usuarios(id, contrasinal):
+    def modificar_datos_usuarios(self,id, contrasinal):
         try:
             cursor.execute("""update usuarios set id=?, contrasinal=? where id=?""", (id, contrasinal, id))
 
