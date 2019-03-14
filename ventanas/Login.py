@@ -3,6 +3,8 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from gi.repository import Gdk
+from ventanas import Principal
+from baseDatos import metodosBase
 
 
 class Login (Gtk.Window):
@@ -11,13 +13,22 @@ class Login (Gtk.Window):
         self.set_default_size(600,400)
         self.set_resizable(False)
 
-        # para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma
+
+        metodosBase.metodosBase.conectar(self)
+        metodosBase.metodosBase.crear_tablas(self)
+        metodosBase.metodosBase.insertar_datos_usuarios(self, "1", "abc123.")
+
+
+
+
+        """# para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma
         cssProvider = Gtk.CssProvider()
         cssProvider.load_from_path('estilos.css')
         screen = Gdk.Screen.get_default()
         styleContext = Gtk.StyleContext()
         styleContext.add_provider_for_screen(screen, cssProvider,
-                                             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+                                             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)"""
+
 
         caixa2 = Gtk.Box(spacing=0,orientation=Gtk.Orientation.VERTICAL)
         caixa = Gtk.Box(spacing=0, orientation=Gtk.Orientation.HORIZONTAL)
@@ -41,7 +52,7 @@ class Login (Gtk.Window):
         caixa2.pack_start(self.lblNome, True, True, 0)
         caixa2.pack_start(self.txtNome, True, True, 0)
 
-        self.lblPass=Gtk.Label(label="CONTRASEÑA:", margin_top=40, margin_bottom=20)
+        self.lblPass=Gtk.Label(label="CONTRASINAL:", margin_top=40, margin_bottom=20)
 
         self.txtPass=Gtk.Entry(margin_bottom=40, margin_left=30, margin_right=30)
         self.txtPass.set_visibility(False)
@@ -52,21 +63,50 @@ class Login (Gtk.Window):
         caixa.pack_start(caixa2, True, True, 0)
 
         self.boton = Gtk.Button(label="CONECTAR", margin_bottom=80, margin_left=300, margin_right=50)
+        self.boton.connect("clicked", self.on_open_clicked)
 
 
 
         caixa2.pack_end(self.boton, True, True, 10)
 
-        # para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma
-        cssProvider = Gtk.CssProvider()
-        cssProvider.load_from_path('estilos.css')
-        screen = Gdk.Screen.get_default()
-        styleContext = Gtk.StyleContext()
-        styleContext.add_provider_for_screen(screen, cssProvider,
-                                             Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
 
         self.connect("destroy", Gtk.main_quit)
         self.show_all()
+        css = b"""
+
+                             #button {
+                           color: red;
+                           background: #00ff00;
+                            }
+
+                            """
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+
+
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+
+    def on_open_clicked(self, button):
+        logueado = metodosBase.metodosBase.compobrar_usuarios(self,self.txtNome.get_text(), self.txtPass.get_text())
+        if(logueado==True):
+            principal = Principal.Principal()
+            self.set_visible(False)
+        else:
+            self.txtNome.set_text("")
+            self.txtPass.set_text("")
+            messageDialog = Gtk.MessageDialog(parent=self,
+                                              flags=Gtk.DialogFlags.MODAL,
+                                              type=Gtk.MessageType.WARNING,
+                                              buttons=Gtk.ButtonsType.OK,
+                                              message_format="USUARIO O CONTRASEÑA INCORRECTOS")
+            response=messageDialog.run()
+            if(response==Gtk.ResponseType.OK):
+                messageDialog.destroy()
 
 
 if __name__ == "__main__":
