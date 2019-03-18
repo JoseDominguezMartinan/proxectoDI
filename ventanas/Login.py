@@ -8,7 +8,9 @@ from baseDatos import metodosBase
 
 
 class Login (Gtk.Window):
+
     def __init__(self):
+
         Gtk.Window.__init__(self, title="CompraVenta")
         self.set_default_size(600,400)
         self.set_resizable(False)
@@ -21,13 +23,13 @@ class Login (Gtk.Window):
 
 
 
-        """# para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma
+        '''''''# para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma'''
         cssProvider = Gtk.CssProvider()
         cssProvider.load_from_path('estilos.css')
         screen = Gdk.Screen.get_default()
         styleContext = Gtk.StyleContext()
         styleContext.add_provider_for_screen(screen, cssProvider,
-                                             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)"""
+                                             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
 
         caixa2 = Gtk.Box(spacing=0,orientation=Gtk.Orientation.VERTICAL)
@@ -67,31 +69,23 @@ class Login (Gtk.Window):
 
 
 
+
         caixa2.pack_end(self.boton, True, True, 10)
 
 
 
         self.connect("destroy", Gtk.main_quit)
         self.show_all()
-        css = b"""
-
-                             #button {
-                           color: red;
-                           background: #00ff00;
-                            }
-
-                            """
-        style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(css)
 
 
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            style_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        '''sinal para ao facer click na contrasinal facer o mesmo que no boton '''
+        self.txtPass.connect("activate", self.on_open_clicked)
+
+        self.txtNome.connect("activate", self.on_txt_clicked)
 
 
     def on_open_clicked(self, button):
+
         logueado = metodosBase.metodosBase.compobrar_usuarios(self,self.txtNome.get_text(), self.txtPass.get_text())
         if(logueado==True):
             principal = Principal.Principal()
@@ -107,6 +101,9 @@ class Login (Gtk.Window):
             response=messageDialog.run()
             if(response==Gtk.ResponseType.OK):
                 messageDialog.destroy()
+
+    def on_txt_clicked(self,button):
+        self.txtPass.grab_focus()
 
 
 if __name__ == "__main__":

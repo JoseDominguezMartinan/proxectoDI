@@ -22,6 +22,14 @@ class Principal(Gtk.Window):
 
         self.add(caixa)
 
+        '''''''# para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma'''
+        cssProvider = Gtk.CssProvider()
+        cssProvider.load_from_path('estilos.css')
+        screen = Gdk.Screen.get_default()
+        styleContext = Gtk.StyleContext()
+        styleContext.add_provider_for_screen(screen, cssProvider,
+                                             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
 
         self.botonCoches = Gtk.Button(label="COCHES", margin_top=30, margin_left=50, margin_right=50)
         self.botonClientes = Gtk.Button(label="CLIENTES", margin_top=30, margin_left=50, margin_right=50)

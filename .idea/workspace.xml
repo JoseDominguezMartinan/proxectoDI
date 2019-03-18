@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ventanas/Login.py" line="13" />
+    <bookmark url="file://$PROJECT_DIR$/ventanas/Login.py" line="15" />
+    <bookmark url="file://$PROJECT_DIR$/ventanas/Coches.py" line="300" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="244e9b4c-c033-4eff-83b9-4e616ba95802" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ventanas/Coches.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ventanas/Principal.py" afterDir="false" />
+    <list default="true" id="244e9b4c-c033-4eff-83b9-4e616ba95802" name="Default Changelist" comment="cambios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseDatos/CrearBaseDatos.py" beforeDir="false" afterPath="$PROJECT_DIR$/baseDatos/metodosBase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baseDatos/metodosBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/baseDatos/metodosBase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ventanas/Coches.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventanas/Coches.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ventanas/Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventanas/Login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ventanas/Principal.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventanas/Principal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ventanas/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/ventanas/estilos.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/baseDatos/metodosBase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="353">
+              <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -32,19 +34,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ventanas/Login.py">
+        <entry file="file://$PROJECT_DIR$/../EjemplosGTK/ejemploTreeview.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="97" column="35" lean-forward="true" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
+            <state relative-caret-position="-1744">
+              <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="70" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ventanas/Login.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="305">
+              <caret line="67" column="6" lean-forward="true" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ventanas/estilos.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ventanas/Coches.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+            <state relative-caret-position="-4242">
+              <caret line="155" selection-start-line="155" selection-end-line="155" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ventanas/Principal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="533">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -67,6 +90,14 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>Limpar</find>
+      <find>False</find>
+      <find>self.on_ce</find>
+      <find>on_celdaText_edited</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -75,21 +106,21 @@
       <list>
         <option value="$PROJECT_DIR$/baseDatos/crearBaseDatos.py" />
         <option value="$PROJECT_DIR$/estilos.css" />
-        <option value="$PROJECT_DIR$/ventanas/estilos.css" />
         <option value="$PROJECT_DIR$/ventanas/principal.py" />
         <option value="$PROJECT_DIR$/baseDatos/CrearBaseDatos.py" />
-        <option value="$PROJECT_DIR$/baseDatos/metodosBase.py" />
-        <option value="$PROJECT_DIR$/ventanas/Login.py" />
         <option value="$PROJECT_DIR$/ventanas/Principal.py" />
+        <option value="$PROJECT_DIR$/ventanas/estilos.css" />
+        <option value="$PROJECT_DIR$/ventanas/Login.py" />
         <option value="$PROJECT_DIR$/ventanas/Coches.py" />
+        <option value="$PROJECT_DIR$/baseDatos/metodosBase.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="47" />
-    <option name="y" value="363" />
-    <option name="width" value="1717" />
-    <option name="height" value="782" />
+    <option name="x" value="293" />
+    <option name="y" value="47" />
+    <option name="width" value="1400" />
+    <option name="height" value="883" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -142,8 +173,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ProyectoOptica/mainWindow.py" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EjemplosGTK/ejemploTreeview.py" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -226,7 +257,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="mainWindow" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ejemploComboBoxText" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="projectCompraVenta" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -234,11 +265,32 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../ProyectoOptica" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../EjemplosGTK" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../ProyectoOptica/mainWindow.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../EjemplosGTK/ejemploComboBoxText.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ejemploTreeview" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="projectCompraVenta" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../EjemplosGTK" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../EjemplosGTK/ejemploTreeview.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -250,9 +302,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Login" />
+        <item itemvalue="Python.ejemploComboBoxText" />
+        <item itemvalue="Python.ejemploTreeview" />
         <item itemvalue="Python.Coches" />
         <item itemvalue="Python.Principal" />
-        <item itemvalue="Python.mainWindow" />
       </list>
     </recent_temporary>
   </component>
@@ -281,7 +334,21 @@
       <option name="project" value="LOCAL" />
       <updated>1552151891342</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Añadidas ventanas, venta de coches ( añadir coches) terminado">
+      <created>1552592542449</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1552592542449</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cambios">
+      <created>1552593258070</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1552593258071</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -294,7 +361,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1920" height="990" extended-state="6" />
+    <frame x="0" y="25" width="1920" height="860" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22034791" />
@@ -302,13 +369,13 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329849" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23112659" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39953542" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27086183" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.06271777" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329849" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.16144018" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.329849" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.16098227" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.329849" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -338,7 +405,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="añadida clase metodosBase" />
     <MESSAGE value="intentando estilos css" />
-    <option name="LAST_COMMIT_MESSAGE" value="intentando estilos css" />
+    <MESSAGE value="Añadidas ventanas, venta de coches ( añadir coches) terminado" />
+    <MESSAGE value="cambios" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambios" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/baseDatos/__init__.py">
@@ -351,13 +420,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ventanas/estilos.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3/dist-packages/gi/overrides/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -365,34 +427,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/baseDatos/metodosBase.py">
+    <entry file="file://$PROJECT_DIR$/../EjemplosGTK/ejemploComboBoxText.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ventanas/Principal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="533">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/gi/overrides/GObject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="217" selection-start-line="217" selection-end-line="217" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/gi/overrides/Gtk.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="961" selection-start-line="961" selection-end-line="961" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ventanas/estilos.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ventanas/Login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="97" column="35" lean-forward="true" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
+        <state relative-caret-position="305">
+          <caret line="67" column="6" lean-forward="true" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ventanas/Principal.py">
+    <entry file="file://$PROJECT_DIR$/../EjemplosGTK/ejemploTreeview.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="-1744">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ventanas/Coches.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+        <state relative-caret-position="-4242">
+          <caret line="155" selection-start-line="155" selection-end-line="155" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/baseDatos/metodosBase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

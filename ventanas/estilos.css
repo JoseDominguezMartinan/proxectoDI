@@ -1,8 +1,27 @@
-GtkWindow {
-    background-color: #0000ff;
+
+
+button, checkbutton {
+    color: rgb(55, 91, 143);
+    font-size: 15px;
+    border-radius: 20px;
+    border: 1px solid rgb(55, 91, 143);
+    margin-right: 2px;
+    margin-left:2px;
+
 }
 
-GtkButton {
-    color: red;
-    background: #00ff00;
+
+
+
+button:hover {
+  background: #375B8F;
+  color: white;
 }
+
+entry {
+border-radius: 20px;
+border: 1px solid rgb(55, 91, 143);
+margin-top:2px;
+margin-bottom:2px;
+}
+

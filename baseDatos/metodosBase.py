@@ -30,7 +30,8 @@ class metodosBase:
             telefono varchar(12), direccion varchar(60),codPostal varchar(8) )""")
 
             cursor.execute("""create table if not exists coches (matricula varchar primary key,marca varchar(60),modelo varchar(60),
-                            kilometraje float, ano int,precio float, clase varchar(20) )""")
+                            kilometraje float, ano int,precio float, clase varchar(20),
+                             automatico boolean, motor varchar, caballos int )""")
 
             cursor.execute("""create table if not exists ventas (matricula varchar, dni varchar, fecha datetime, 
                             compVend varchar(10), primary key(matricula, dni) )""")
@@ -60,11 +61,11 @@ class metodosBase:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
 
-    def insertar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase):
+    def insertar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos):
         try:
             cursor = metodosBase.conectar(self)
             cursor.execute("""insert into coches (matricula, marca, modelo, 
-            kilometraje, ano, precio, clase) values (?,?,?,?,?, ?, ?)""", (matricula, marca, modelo, km, ano, precio, clase))
+            kilometraje, ano, precio, clase, automatico, motor, caballos) values (?,?,?,?,?, ?, ?,?,?,?)""", (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
@@ -154,11 +155,11 @@ class metodosBase:
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
-    def modificar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase):
+    def modificar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos):
         try:
             cursor = metodosBase.conectar(self)
             cursor.execute("""update coches set matricula=?, marca=?, modelo=?, kilometraje=?, 
-            ano=?, precio=?, clase=? where matricula=? """, (matricula, marca, modelo, km, ano, precio, clase, matricula))
+            ano=?, precio=?, clase=?, automatico=?, motor=?, caballos=? where matricula=? """, (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, matricula))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
@@ -202,4 +203,11 @@ class metodosBase:
 
         except dbapi2.DatabaseError as erroConsulta:
             print("Erro na consulta de datos: " + str(erroConsulta))
+
+    def listar_coches(self):
+        cursor=metodosBase.conectar(self)
+        resultados=cursor.execute("select * from coches")
+        coches =tuple (resultados.fetchall())
+        metodosBase.cerrar(self)
+        return coches
 
