@@ -31,10 +31,11 @@ class metodosBase:
 
             cursor.execute("""create table if not exists coches (matricula varchar primary key,marca varchar(60),modelo varchar(60),
                             kilometraje float, ano int,precio float, clase varchar(20),
-                             automatico boolean, motor varchar, caballos int )""")
+                             automatico boolean, motor varchar, caballos int, vendido boolean )""")
 
             cursor.execute("""create table if not exists ventas (matricula varchar, dni varchar, fecha datetime, 
-                            compVend varchar(10), primary key(matricula, dni) )""")
+                             primary key(matricula, dni), foreign key (matricula) references coches(matricula),
+                              foreign key (dni) references clientes(dni))""")
 
             cursor.execute("""create table if not exists usuarios (id varchar primary key,contrasinal varchar(30) ) """)
             metodosBase.bbdd.commit()
@@ -61,22 +62,26 @@ class metodosBase:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
 
-    def insertar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos):
+    def insertar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, vendido):
         try:
             cursor = metodosBase.conectar(self)
             cursor.execute("""insert into coches (matricula, marca, modelo, 
-            kilometraje, ano, precio, clase, automatico, motor, caballos) values (?,?,?,?,?, ?, ?,?,?,?)""", (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos))
+            kilometraje, ano, precio, clase, automatico, motor, caballos, vendido) values (?,?,?,?,?, ?, ?,?,?,?,?)""", (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, vendido))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
+            #para indicar que non hubo erros, devolvemos unha variable booleana
+            return True
 
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
+            # se hubo erro devolvemos false
+            return False
 
-    def insertar_datos_ventas(self,matricula, dni, fecha, compVend):
+    def insertar_datos_ventas(self,matricula, dni, fecha):
         try:
             cursor = metodosBase.conectar(self)
-            cursor.execute("""insert into ventas (matricula, dni, fecha, compVend) values (?,?,?,?)""", (matricula, dni, fecha, compVend))
+            cursor.execute("""insert into ventas (matricula, dni, fecha) values (?,?,?)""", (matricula, dni, fecha))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
@@ -155,11 +160,24 @@ class metodosBase:
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
 
-    def modificar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos):
+    def modificar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, vendido):
         try:
             cursor = metodosBase.conectar(self)
             cursor.execute("""update coches set matricula=?, marca=?, modelo=?, kilometraje=?, 
-            ano=?, precio=?, clase=?, automatico=?, motor=?, caballos=? where matricula=? """, (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, matricula))
+            ano=?, precio=?, clase=?, automatico=?, motor=?, caballos=?, vendido=? where matricula=? """, (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, matricula, vendido))
+
+            metodosBase.bbdd.commit()
+            metodosBase.cerrar(self)
+
+        except dbapi2.DatabaseError as erroInsercion:
+            print("Erro na inserción de datos: " + str(erroInsercion))
+
+    def modificar_datoventa_coches(self, matricula,vendido):
+        try:
+            cursor = metodosBase.conectar(self)
+            cursor.execute("""update coches set  
+                vendido=? where matricula=? """, (
+            vendido, matricula))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
@@ -206,7 +224,7 @@ class metodosBase:
 
     def listar_coches(self):
         cursor=metodosBase.conectar(self)
-        resultados=cursor.execute("select * from coches")
+        resultados=cursor.execute("select * from coches where vendido=0")
         coches =tuple (resultados.fetchall())
         metodosBase.cerrar(self)
         return coches

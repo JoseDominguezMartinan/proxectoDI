@@ -5,8 +5,17 @@ gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
 from gi.repository import Gdk
 from baseDatos import metodosBase
+from ventanas import venta
+
 
 class Coches(Gtk.Window):
+
+    modelos = Gtk.ListStore(str, str, str, int, int, str, str, bool, str, int)
+
+    filtro_categoria = modelos.filter_new()
+
+    vista = Gtk.TreeView(model=filtro_categoria)
+
     def __init__(self):
         Gtk.Window.__init__(self,title="Gestión de coches")
         self.set_default_size(600, 400)
@@ -15,6 +24,10 @@ class Coches(Gtk.Window):
         """almacenaremos aqui las coordenadas para modificaciones posteriormente"""
         self.x=0
         self.y=2
+        """para controlar que seu pueda modificar o no el togled del treeview"""
+        self.modificable=False
+
+        self.filtro_categoria.set_visible_func(self.categoria_filtro)
 
         '''ventana 1 : compra de coches'''
 
@@ -44,6 +57,7 @@ class Coches(Gtk.Window):
         self.botonSalir.connect("clicked", self.on_close_clicked)
         self.botonSalir2.connect("clicked", self.on_close_clicked)
         self.botonLimpar.connect("clicked",self.limpar_clicked)
+        self.botonVender.connect("clicked", self.vender_clicked)
 
         self.boxBotonesVentas = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         self.boxBotonesVentas.add(self.botonLimpar)
@@ -150,7 +164,7 @@ class Coches(Gtk.Window):
         vbox.pack_start(stack,True,True,0)
 
         '''ventana 2: venta de coches'''
-        self.modelos = Gtk.ListStore(str, str, str, int, int, str, str, bool, str, int)
+
         self.coches=metodosBase.metodosBase.listar_coches(self)
 
 
@@ -162,11 +176,10 @@ class Coches(Gtk.Window):
                                  coche[6],
                                  coche[7], coche[8], coche[9]])
 
-        self.filtro_categoria = self.modelos.filter_new()
-        self.filtro_categoria.set_visible_func(self.categoria_filtro)
+
         self.parametro_filtro_categoria = None
 
-        self.vista = Gtk.TreeView(model=self.filtro_categoria)
+
 
 
 
@@ -177,8 +190,11 @@ class Coches(Gtk.Window):
         self.seleccion = self.vista.get_selection()
         self.celdaText = Gtk.CellRendererText()
         self.celdaText.connect("edited", self.on_celdaText_edited, self.modelos)
+
         self.celdaButton= Gtk.CellRendererToggle()
+        self.celdaButton.connect("toggled", self.on_cell_toggled)
         self.celdaText.set_property("editable", False)
+
         self.vista.connect("button-press-event", self.on_pressed)
 
         self.columnaMatricula = Gtk.TreeViewColumn('Matricula', self.celdaText, text=0)
@@ -260,8 +276,6 @@ class Coches(Gtk.Window):
         self.boxVenta.add(self.filtrarBox)
 
 
-
-
         self.botonesBox=Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin_top=10)
         self.botonesBox.add(self.botonModificar)
         self.botonesBox.add(self.botonVender)
@@ -274,28 +288,43 @@ class Coches(Gtk.Window):
 
         self.show_all()
 
+
+
     def on_open_clicked(self,button):
 
-        metodosBase.metodosBase.insertar_datos_coches(self,self.entryMatricula.get_text(),self.entryMarca.get_text(),
+        error=metodosBase.metodosBase.insertar_datos_coches(self,self.entryMatricula.get_text(),self.entryMarca.get_text(),
                                                       self.entryModelo.get_text(),
                                                       self.entryKm.get_text(),self.entryAno.get_text(),
                                                       self.entryPrecio.get_text(),
                                                       self.lista_clases[self.comboClases.get_active()][1],
                                                       self.checkAutomatico.get_active(),
                                                       self.entryMotor.get_text(),
-                                                      self.entryCaballos.get_text())
+                                                      self.entryCaballos.get_text(),
+                                                      False)
+        if(error==True):
 
-        self.modelos.append([self.entryMatricula.get_text(), self.entryMarca.get_text(),
-                                                      self.entryModelo.get_text(),
-                                                      int(self.entryKm.get_text()), int(self.entryAno.get_text()),
-                                                      self.entryPrecio.get_text(),
-                                                      self.lista_clases[self.comboClases.get_active()][1],
-                                                      self.checkAutomatico.get_active(),
-                                                      self.entryMotor.get_text(),
-                                                      int(self.entryCaballos.get_text())]
-                                                    )
+            self.modelos.append([self.entryMatricula.get_text(), self.entryMarca.get_text(),
+                                                          self.entryModelo.get_text(),
+                                                          int(self.entryKm.get_text()), int(self.entryAno.get_text()),
+                                                          self.entryPrecio.get_text(),
+                                                          self.lista_clases[self.comboClases.get_active()][1],
+                                                          self.checkAutomatico.get_active(),
+                                                          self.entryMotor.get_text(),
+                                                          int(self.entryCaballos.get_text())]
+                                                        )
 
-        self.limpar_clicked(self)
+            self.limpar_clicked(self)
+        else:
+            messageDialog = Gtk.MessageDialog(parent=self,
+                                              flags=Gtk.DialogFlags.MODAL,
+                                              type=Gtk.MessageType.WARNING,
+                                              buttons=Gtk.ButtonsType.OK,
+                                              message_format="LA MATRICULA YA EXISTE EN LA BASE DE DATOS")
+            response = messageDialog.run()
+            if (response == Gtk.ResponseType.OK):
+                messageDialog.destroy()
+
+
 
     def on_btnFiltrar_clicked(self, control):
 
@@ -375,10 +404,13 @@ class Coches(Gtk.Window):
         self.entryMotor.set_text("")
 
     def on_pressed(self, trview, event):
-        path, col, x, y = trview.get_path_at_pos(event.x, event.y)
-        coordenada=(col.colnr, path.to_string())
-        self.x=int(coordenada[0])
-        self.y=int(coordenada[1])
+        try:
+            path, col, x, y = trview.get_path_at_pos(event.x, event.y)
+            coordenada=(col.colnr, path.to_string())
+            self.x=int(coordenada[0])
+            self.y=int(coordenada[1])
+        except:
+            print("erro, ten que marcar algo")
 
 
 
@@ -388,9 +420,32 @@ class Coches(Gtk.Window):
         metodosBase.metodosBase.modificar_datos_coches(self,modelo[punteiro][0],modelo[punteiro][1]
                                                        ,modelo[punteiro][2],modelo[punteiro][3],modelo[punteiro][4]
                                                        ,modelo[punteiro][5],modelo[punteiro][6],modelo[punteiro][7]
-                                                       ,modelo[punteiro][8],modelo[punteiro][9])
+                                                       ,modelo[punteiro][8],modelo[punteiro][9],False)
         self.celdaText.set_property("editable", False)
+
+
 
     def modificar_clicked(self, control):
         self.celdaText.set_property("editable", True)
+        self.modificable=True
+
+
+    def on_cell_toggled(self, widget, punteiro):
+        if(self.modificable==True):
+            self.modelos[punteiro][7] = not self.modelos[punteiro][7]
+
+            metodosBase.metodosBase.modificar_datos_coches(self, self.modelos[punteiro][0], self.modelos[punteiro][1]
+                                                        , self.modelos[punteiro][2], self.modelos[punteiro][3], self.modelos[punteiro][4]
+                                                        , self.modelos[punteiro][5], self.modelos[punteiro][6], self.modelos[punteiro][7]
+                                                         , self.modelos[punteiro][8], self.modelos[punteiro][9],False)
+
+            self.modificable=False
+
+    def vender_clicked(self, evt):
+        try:
+            ventas = venta.Venta(self.modelos[self.y][0])
+        except:
+            print("error al abrir la ventana")
+
+
 
