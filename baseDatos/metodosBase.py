@@ -64,14 +64,19 @@ class metodosBase:
 
     def insertar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, vendido):
         try:
-            cursor = metodosBase.conectar(self)
-            cursor.execute("""insert into coches (matricula, marca, modelo, 
-            kilometraje, ano, precio, clase, automatico, motor, caballos, vendido) values (?,?,?,?,?, ?, ?,?,?,?,?)""", (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, vendido))
+            if(matricula!="" and marca!="" and modelo!="" and km!="" and ano!=""
+                    and precio!="" and clase!="" and automatico!=""
+                    and motor!=""and caballos!="" and vendido!=""):
+                cursor = metodosBase.conectar(self)
+                cursor.execute("""insert into coches (matricula, marca, modelo, 
+                kilometraje, ano, precio, clase, automatico, motor, caballos, vendido) values (?,?,?,?,?, ?, ?,?,?,?,?)""", (matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, vendido))
 
-            metodosBase.bbdd.commit()
-            metodosBase.cerrar(self)
-            #para indicar que non hubo erros, devolvemos unha variable booleana
-            return True
+                metodosBase.bbdd.commit()
+                metodosBase.cerrar(self)
+                #para indicar que non hubo erros, devolvemos unha variable booleana
+                return True
+            else:
+                return False
 
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
@@ -218,6 +223,7 @@ class metodosBase:
                 return True
             else:
                 return False
+
 
         except dbapi2.DatabaseError as erroConsulta:
             print("Erro na consulta de datos: " + str(erroConsulta))

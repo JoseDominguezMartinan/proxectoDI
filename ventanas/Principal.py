@@ -11,7 +11,7 @@ class Principal(Gtk.Window):
         self.set_default_size(400, 200)
         self.set_resizable(False)
 
-
+        self.coches=None
 
         caixa = Gtk.Box(spacing=0, orientation=Gtk.Orientation.VERTICAL)
 
@@ -47,7 +47,9 @@ class Principal(Gtk.Window):
 
 
     def on_open_clicked(self,button):
-        coches =Coches.Coches()
+
+            self.coches =Coches.Coches()
+
 
 
 

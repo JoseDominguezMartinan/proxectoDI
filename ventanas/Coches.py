@@ -6,6 +6,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from baseDatos import metodosBase
 from ventanas import venta
+from ventanas import Principal
 
 
 class Coches(Gtk.Window):
@@ -16,18 +17,21 @@ class Coches(Gtk.Window):
 
     vista = Gtk.TreeView(model=filtro_categoria)
 
+    parametro_filtro_categoria = None
+
     def __init__(self):
         Gtk.Window.__init__(self,title="Gestión de coches")
         self.set_default_size(600, 400)
         self.set_resizable(False)
         self.set_border_width(5)
+
         """almacenaremos aqui las coordenadas para modificaciones posteriormente"""
         self.x=0
         self.y=2
         """para controlar que seu pueda modificar o no el togled del treeview"""
         self.modificable=False
 
-        self.filtro_categoria.set_visible_func(self.categoria_filtro)
+
 
         '''ventana 1 : compra de coches'''
 
@@ -38,6 +42,10 @@ class Coches(Gtk.Window):
         boxCompra=Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=50, homogeneous=False)
 
         gridCompra=Gtk.Grid(margin_left=150)
+
+
+
+        self.filtro_categoria.set_visible_func(self.categoria_filtro)
 
         self.boxVenta=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, homogeneous=False)
 
@@ -177,12 +185,6 @@ class Coches(Gtk.Window):
                                  coche[7], coche[8], coche[9]])
 
 
-        self.parametro_filtro_categoria = None
-
-
-
-
-
         self.scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
 
         self.scrollTree.add_with_viewport(self.vista)
@@ -319,7 +321,7 @@ class Coches(Gtk.Window):
                                               flags=Gtk.DialogFlags.MODAL,
                                               type=Gtk.MessageType.WARNING,
                                               buttons=Gtk.ButtonsType.OK,
-                                              message_format="LA MATRICULA YA EXISTE EN LA BASE DE DATOS")
+                                              message_format="Inserte todos los datos y no introduzca matricula repetida")
             response = messageDialog.run()
             if (response == Gtk.ResponseType.OK):
                 messageDialog.destroy()
@@ -446,6 +448,7 @@ class Coches(Gtk.Window):
             ventas = venta.Venta(self.modelos[self.y][0])
         except:
             print("error al abrir la ventana")
+
 
 
 
