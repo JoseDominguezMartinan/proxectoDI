@@ -27,7 +27,7 @@ class metodosBase:
         try:
             cursor = metodosBase.conectar(self)
             cursor.execute("""create table if not exists clientes (dni varchar primary key,nomeCompleto varchar(100),
-            telefono varchar(12), direccion varchar(60),codPostal varchar(8) )""")
+            fechaNac varchar, telefono varchar(12), direccion varchar(60),codPostal varchar(8) )""")
 
             cursor.execute("""create table if not exists coches (matricula varchar primary key,marca varchar(60),modelo varchar(60),
                             kilometraje float, ano int,precio float, clase varchar(20),
@@ -50,16 +50,21 @@ class metodosBase:
 
     #metodos para insertar datos en cada una de las tablas
 
-    def insertar_datos_clientes(self,dni, nome, telefono, direccion, codPostal):
+    def insertar_datos_clientes(self,dni, nome,fecha, telefono, direccion, codPostal):
 
         try:
-            cursor = metodosBase.conectar()
-            cursor.execute("""insert into clientes (dni, nome, telefono, direccion, codPostal) values (?,?,?,?,?)""", (dni, nome, telefono, direccion, codPostal))
+            if(dni!="" and nome!="" and fecha!="" and telefono!="" and direccion!="" and codPostal!=""):
+                cursor = metodosBase.conectar(self)
+                cursor.execute("""insert into clientes (dni, nomeCompleto,fechaNac, telefono, direccion, codPostal) values (?,?,?,?,?,?)""", (dni, nome,fecha, telefono, direccion, codPostal))
 
-            metodosBase.bbdd.commit()
-            metodosBase.cerrar(self)
+                metodosBase.bbdd.commit()
+                metodosBase.cerrar(self)
+                return True
+            else:
+                return False
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
+            return False
 
 
     def insertar_datos_coches(self,matricula, marca, modelo, km, ano, precio, clase, automatico, motor, caballos, vendido):
@@ -111,7 +116,7 @@ class metodosBase:
 
         try:
             cursor = metodosBase.conectar(self)
-            cursor.execute("""delete from clientes where dni=(?)""", dni)
+            cursor.execute("""delete from clientes where dni=(?)""", (dni,))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
@@ -122,7 +127,7 @@ class metodosBase:
     def borrar_datos_coches(self,matricula):
         try:
             cursor = metodosBase.conectar(self)
-            cursor.execute("""delete from coches where matricula=(?)""", matricula)
+            cursor.execute("""delete from coches where matricula=(?)""", (matricula,))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
@@ -145,7 +150,7 @@ class metodosBase:
     def borrar_datos_usuarios(self,id):
         try:
             cursor = metodosBase.conectar(self)
-            cursor.execute("""delete from usuarios where id=(?)""",id)
+            cursor.execute("""delete from usuarios where id=(?)""",(id,))
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
 
@@ -154,11 +159,11 @@ class metodosBase:
             print("Erro no borrado de datos: "+str(erroBorrado))
 
     #metodos para modificar os datos en cada unha das taboas
-    def modificar_datos_clientes(self,dni, nome, telefono, direccion, codPostal):
+    def modificar_datos_clientes(self,dni, nome,fecha, telefono, direccion, codPostal):
 
         try:
             cursor = metodosBase.conectar(self)
-            cursor.execute("""update coches set dni=?, nome=?, telefono=?, direccion=?, codPostal=? where dni=?""", (dni, nome, telefono, direccion, codPostal, dni))
+            cursor.execute("""update clientes set dni=?, nomeCompleto=?,fechaNac=?, telefono=?, direccion=?, codPostal=? where dni=?""", (dni, nome,fecha, telefono, direccion, codPostal, dni))
 
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
@@ -234,3 +239,10 @@ class metodosBase:
         coches =tuple (resultados.fetchall())
         metodosBase.cerrar(self)
         return coches
+
+    def listar_clientes(self):
+        cursor = metodosBase.conectar(self)
+        resultados = cursor.execute("select * from clientes")
+        clientes = tuple(resultados.fetchall())
+        metodosBase.cerrar(self)
+        return clientes
