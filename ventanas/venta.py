@@ -58,13 +58,6 @@ class Venta():
             metodosBase.metodosBase.insertar_datos_ventas(self,matricula,dni,fecha)
             metodosBase.metodosBase.modificar_datoventa_coches(self,matricula,True)
 
-            selection = Coches.Coches.vista.get_selection()
-            model, paths = selection.get_selected_rows()
-
-            for path in paths:
-                iterador = Coches.Coches.modelos.get_iter(path)
-                Coches.Coches.modelos.remove(iterador)
-
 
 
 
@@ -77,6 +70,3 @@ class Venta():
 
     def on_botonSalir_clicked(self,evt):
         self.fiestra.destroy()
-
-
-

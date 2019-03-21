@@ -11,19 +11,22 @@ from ventanas import Principal
 
 class Coches(Gtk.Window):
 
-    modelos = Gtk.ListStore(str, str, str, int, int, str, str, bool, str, int)
-
-    filtro_categoria = modelos.filter_new()
-
-    vista = Gtk.TreeView(model=filtro_categoria)
-
-    parametro_filtro_categoria = None
 
     def __init__(self):
         Gtk.Window.__init__(self,title="Gestión de coches")
         self.set_default_size(600, 400)
         self.set_resizable(False)
         self.set_border_width(5)
+
+        self.modelos = Gtk.ListStore(str, str, str, int, int, str, str, bool, str, int)
+
+        self.filtro_categoria = self.modelos.filter_new()
+
+        self.vista = Gtk.TreeView(model=self.filtro_categoria)
+
+
+
+        self.parametro_filtro_categoria = None
 
         """almacenaremos aqui las coordenadas para modificaciones posteriormente"""
         self.x=0
@@ -316,6 +319,7 @@ class Coches(Gtk.Window):
                                                         )
 
             self.limpar_clicked(self)
+
         else:
             messageDialog = Gtk.MessageDialog(parent=self,
                                               flags=Gtk.DialogFlags.MODAL,
@@ -419,10 +423,10 @@ class Coches(Gtk.Window):
     def on_celdaText_edited (self, control, punteiro, texto, modelo):
         x=int(self.x)
         modelo[punteiro][x] = texto
-        metodosBase.metodosBase.modificar_datos_coches(self,modelo[punteiro][0],modelo[punteiro][1]
-                                                       ,modelo[punteiro][2],modelo[punteiro][3],modelo[punteiro][4]
-                                                       ,modelo[punteiro][5],modelo[punteiro][6],modelo[punteiro][7]
-                                                       ,modelo[punteiro][8],modelo[punteiro][9],False)
+        metodosBase.metodosBase.modificar_datos_coches(self,self.modelos[punteiro][0],self.modelos[punteiro][1]
+                                                       ,self.modelos[punteiro][2],self.modelos[punteiro][3],self.modelos[punteiro][4]
+                                                       ,self.modelos[punteiro][5],self.modelos[punteiro][6],self.modelos[punteiro][7]
+                                                       ,self.modelos[punteiro][8],self.modelos[punteiro][9],False)
         self.celdaText.set_property("editable", False)
 
 
@@ -444,11 +448,19 @@ class Coches(Gtk.Window):
             self.modificable=False
 
     def vender_clicked(self, evt):
+
+
         try:
+
             ventas = venta.Venta(self.modelos[self.y][0])
+
+            selection = self.vista.get_selection()
+            model, paths = selection.get_selected_rows()
+            for path in paths:
+                iterador = self.modelos.get_iter(path)
+                self.modelos.remove(iterador)
+
         except:
             print("error al abrir la ventana")
-
-
 
 

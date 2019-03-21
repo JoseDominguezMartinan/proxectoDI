@@ -96,7 +96,6 @@ class metodosBase:
 
     def insertar_datos_usuarios(self,id, contrasinal):
         try:
-
             cursor = metodosBase.conectar(self)
             cursor.execute("""insert into usuarios (id, contrasinal) values (?,?)""", (id, contrasinal))
 
@@ -235,4 +234,3 @@ class metodosBase:
         coches =tuple (resultados.fetchall())
         metodosBase.cerrar(self)
         return coches
-
