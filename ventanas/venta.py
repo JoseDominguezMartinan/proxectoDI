@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from baseDatos import metodosBase
 from ventanas import Coches
+from platy import informeAlbaran
 
 class Venta():
 
@@ -53,14 +54,33 @@ class Venta():
         matricula=self.entryMatricula.get_text()
         dni=self.entryDni.get_text()
         fecha=self.entryFecha.get_text()
+
         if not(matricula == "" and dni == "" and fecha == ""):
-            self.on_botonLimpiar_clicked("")
-            metodosBase.metodosBase.insertar_datos_ventas(self,matricula,dni,fecha)
-            metodosBase.metodosBase.modificar_datoventa_coches(self,matricula,True)
 
-
-
-
+                self.on_botonLimpiar_clicked("")
+                numVenta=metodosBase.metodosBase.insertar_datos_ventas(self,matricula,dni,fecha)
+                if(numVenta is not None):
+                    num=numVenta[0][0]
+                    metodosBase.metodosBase.modificar_datoventa_coches(self,matricula,True)
+                    albaran=informeAlbaran.informeAlbaran.crear_factura(self,num,matricula,dni,fecha)
+                    if(albaran==False):
+                        messageDialog = Gtk.MessageDialog(parent=self,
+                                                          flags=Gtk.DialogFlags.MODAL,
+                                                          type=Gtk.MessageType.WARNING,
+                                                          buttons=Gtk.ButtonsType.OK,
+                                                          message_format="NO SE PUEDE HACER LA FACTURA, CLIENTE NO REGISTRADO")
+                        response = messageDialog.run()
+                        if (response == Gtk.ResponseType.OK):
+                            messageDialog.destroy()
+                else:
+                    messageDialog2 = Gtk.MessageDialog(parent=None,
+                                                     flags=Gtk.DialogFlags.MODAL,
+                                                     type=Gtk.MessageType.WARNING,
+                                                     buttons=Gtk.ButtonsType.OK,
+                                                     message_format="ERROR, CLIENTE NO ENCONTRADO")
+                    response2 = messageDialog2.run()
+                    if (response2 == Gtk.ResponseType.OK):
+                        messageDialog2.destroy()
 
 
     def on_botonLimpiar_clicked(self,evt):

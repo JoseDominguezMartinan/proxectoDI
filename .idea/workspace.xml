@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="244e9b4c-c033-4eff-83b9-4e616ba95802" name="Default Changelist" comment="cambios">
-      <change afterPath="$PROJECT_DIR$/ventanas/Clientes.py" afterDir="false" />
+    <list default="true" id="244e9b4c-c033-4eff-83b9-4e616ba95802" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/platy/informeAlbaran.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/platy/informeVentas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/baseDatos/metodosBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/baseDatos/metodosBase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ventanas/Coches.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventanas/Coches.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ventanas/Principal.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventanas/Principal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ventanas/venta.py" beforeDir="false" afterPath="$PROJECT_DIR$/ventanas/venta.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,12 +17,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ventanas/Coches.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="460" column="45" lean-forward="true" selection-start-line="456" selection-start-column="12" selection-end-line="460" selection-end-column="45" />
+            <state relative-caret-position="303">
+              <caret line="476" column="84" selection-start-line="476" selection-start-column="84" selection-end-line="476" selection-end-column="84" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -26,20 +30,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ventanas/Clientes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="396" lean-forward="true" selection-start-line="396" selection-end-line="396" />
+            <state relative-caret-position="438">
+              <caret line="396" selection-start-line="396" selection-end-line="396" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ventanas/Login.py">
+        <entry file="file://$PROJECT_DIR$/ventanas/Principal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="112" lean-forward="true" selection-start-line="112" selection-end-line="112" />
+            <state relative-caret-position="280">
+              <caret line="64" column="81" selection-start-line="64" selection-start-column="81" selection-end-line="64" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -47,10 +51,52 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/baseDatos/metodosBase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-28">
-              <caret line="165" column="45" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
+            <state relative-caret-position="253">
+              <caret line="276" column="105" selection-start-line="276" selection-start-column="105" selection-end-line="276" selection-end-column="105" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ventanas/Login.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1976">
+              <caret line="104" column="36" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ventanas/venta.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="75" column="66" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/platy/informeAlbaran.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="102" column="73" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="73" />
+              <folding>
+                <element signature="e#0#139#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/platy/informeVentas.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1044">
+              <caret line="139" column="29" selection-start-line="139" selection-start-column="29" selection-end-line="139" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#64#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,6 +118,8 @@
       <find>self.on_ce</find>
       <find>on_celdaText_edited</find>
       <find>direccion</find>
+      <find>botonVender</find>
+      <find>doc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -84,21 +132,22 @@
         <option value="$PROJECT_DIR$/estilos.css" />
         <option value="$PROJECT_DIR$/ventanas/principal.py" />
         <option value="$PROJECT_DIR$/baseDatos/CrearBaseDatos.py" />
-        <option value="$PROJECT_DIR$/ventanas/Principal.py" />
         <option value="$PROJECT_DIR$/ventanas/estilos.css" />
         <option value="$PROJECT_DIR$/ventanas/Login.py" />
-        <option value="$PROJECT_DIR$/ventanas/venta.py" />
-        <option value="$PROJECT_DIR$/ventanas/Coches.py" />
-        <option value="$PROJECT_DIR$/baseDatos/metodosBase.py" />
         <option value="$PROJECT_DIR$/ventanas/Clientes.py" />
+        <option value="$PROJECT_DIR$/ventanas/Principal.py" />
+        <option value="$PROJECT_DIR$/platy/informeAlbaran.py" />
+        <option value="$PROJECT_DIR$/ventanas/venta.py" />
+        <option value="$PROJECT_DIR$/baseDatos/metodosBase.py" />
+        <option value="$PROJECT_DIR$/platy/informeVentas.py" />
+        <option value="$PROJECT_DIR$/ventanas/Coches.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="293" />
-    <option name="y" value="47" />
-    <option name="width" value="1400" />
-    <option name="height" value="883" />
+    <option name="y" value="25" />
+    <option name="width" value="1920" />
+    <option name="height" value="990" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -117,6 +166,11 @@
               <item name="projectCompraVenta" type="b2602c69:ProjectViewProjectNode" />
               <item name="projectCompraVenta" type="462c0819:PsiDirectoryNode" />
               <item name="baseDatos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="projectCompraVenta" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projectCompraVenta" type="462c0819:PsiDirectoryNode" />
+              <item name="platy" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="projectCompraVenta" type="b2602c69:ProjectViewProjectNode" />
@@ -151,14 +205,16 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EjemplosGTK/ejemploTreeview.py" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Escritorio/InformesReportLab" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/platy" />
       <recent name="$PROJECT_DIR$/ventanas" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/ventanas" />
     </key>
   </component>
@@ -174,7 +230,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Clientes">
+  <component name="RunManager" selected="Python.Login">
     <configuration name="Clientes" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="projectCompraVenta" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -282,8 +338,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Clientes" />
         <item itemvalue="Python.Login" />
+        <item itemvalue="Python.Clientes" />
         <item itemvalue="Python.ejemploComboBoxText" />
         <item itemvalue="Python.ejemploTreeview" />
         <item itemvalue="Python.Coches" />
@@ -336,7 +392,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553184335489</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Añadida ventana clientes">
+      <created>1553195129222</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1553195129222</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -349,21 +412,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1920" height="860" extended-state="6" />
+    <frame x="0" y="25" width="1920" height="990" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.015814444" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16130732" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32968536" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19425444" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.4425087" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.06271777" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329849" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.329849" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.27906978" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.27874565" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.329849" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -371,18 +434,18 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22034791" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.16130732" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23241206" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39953542" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32968536" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.28339142" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.06271777" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.16144018" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329849" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.329849" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.27906978" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.329849" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -395,7 +458,8 @@
     <MESSAGE value="intentando estilos css" />
     <MESSAGE value="Añadidas ventanas, venta de coches ( añadir coches) terminado" />
     <MESSAGE value="cambios" />
-    <option name="LAST_COMMIT_MESSAGE" value="cambios" />
+    <MESSAGE value="Añadida ventana clientes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Añadida ventana clientes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/baseDatos/__init__.py">
@@ -438,53 +502,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ventanas/Principal.py">
+    <entry file="file:///usr/lib/python3/dist-packages/reportlab/platypus/flowables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        <state relative-caret-position="1539">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ventanas/venta.py">
+    <entry file="file:///usr/lib/python3/dist-packages/reportlab/lib/fonts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ventanas/Coches.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="460" column="45" lean-forward="true" selection-start-line="456" selection-start-column="12" selection-end-line="460" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="161">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ventanas/Login.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="112" lean-forward="true" selection-start-line="112" selection-end-line="112" />
+        <state relative-caret-position="1976">
+          <caret line="104" column="36" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/reportlab/graphics/charts/piecharts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37">
+          <caret line="477" selection-start-line="477" selection-end-line="477" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ventanas/Clientes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="396" selection-start-line="396" selection-end-line="396" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ventanas/Principal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="64" column="81" selection-start-line="64" selection-start-column="81" selection-end-line="64" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/reportlab/graphics/widgetbase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/baseDatos/metodosBase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-28">
-          <caret line="165" column="45" selection-start-line="165" selection-start-column="45" selection-end-line="165" selection-end-column="45" />
+        <state relative-caret-position="253">
+          <caret line="276" column="105" selection-start-line="276" selection-start-column="105" selection-end-line="276" selection-end-column="105" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ventanas/Clientes.py">
+    <entry file="file:///usr/lib/python3/dist-packages/reportlab/graphics/charts/axes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="396" lean-forward="true" selection-start-line="396" selection-end-line="396" />
+        <state relative-caret-position="167">
+          <caret line="554" selection-start-line="554" selection-end-line="554" />
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/reportlab/platypus/doctemplate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="1212" selection-start-line="1212" selection-end-line="1212" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platy/informeVentas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="139" column="29" selection-start-line="139" selection-start-column="29" selection-end-line="139" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/platy/informeAlbaran.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="102" column="73" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#139#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ventanas/venta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="75" column="66" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ventanas/Coches.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="476" column="84" selection-start-line="476" selection-start-column="84" selection-end-line="476" selection-end-column="84" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

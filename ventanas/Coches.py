@@ -7,6 +7,7 @@ from gi.repository import Gdk
 from baseDatos import metodosBase
 from ventanas import venta
 from ventanas import Principal
+from platy import informeVentas
 
 
 class Coches(Gtk.Window):
@@ -65,10 +66,12 @@ class Coches(Gtk.Window):
         self.botonSalir = Gtk.Button(label="Salir", margin_left=625)
         self.botonSalir2 = Gtk.Button(label="Salir", margin_left=25)
         self.botonLimpar = Gtk.Button(label="Limpiar", margin_left=600)
+        self.botonInforme=Gtk.Button(label="Informe")
         self.botonSalir.connect("clicked", self.on_close_clicked)
         self.botonSalir2.connect("clicked", self.on_close_clicked)
         self.botonLimpar.connect("clicked",self.limpar_clicked)
         self.botonVender.connect("clicked", self.vender_clicked)
+        self.botonInforme.connect("clicked",self.crear_informe)
 
         self.boxBotonesVentas = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         self.boxBotonesVentas.add(self.botonLimpar)
@@ -283,6 +286,7 @@ class Coches(Gtk.Window):
 
         self.botonesBox=Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin_top=10)
         self.botonesBox.add(self.botonModificar)
+        self.botonesBox.add(self.botonInforme)
         self.botonesBox.add(self.botonVender)
         self.botonesBox.add(self.botonSalir)
 
@@ -464,3 +468,13 @@ class Coches(Gtk.Window):
             print("error al abrir la ventana")
 
 
+    def crear_informe(self,evt):
+        informeVentas.informeVentas.crear_informe(self)
+        messageDialog = Gtk.MessageDialog(parent=self,
+                                          flags=Gtk.DialogFlags.MODAL,
+                                          type=Gtk.MessageType.WARNING,
+                                          buttons=Gtk.ButtonsType.OK,
+                                          message_format="Informe generado con exito")
+        response = messageDialog.run()
+        if (response == Gtk.ResponseType.OK):
+            messageDialog.destroy()

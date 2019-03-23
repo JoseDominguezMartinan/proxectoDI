@@ -33,8 +33,8 @@ class metodosBase:
                             kilometraje float, ano int,precio float, clase varchar(20),
                              automatico boolean, motor varchar, caballos int, vendido boolean )""")
 
-            cursor.execute("""create table if not exists ventas (matricula varchar, dni varchar, fecha datetime, 
-                             primary key(matricula, dni), foreign key (matricula) references coches(matricula),
+            cursor.execute("""create table if not exists ventas (numVenta integer primary key autoincrement, matricula varchar, dni varchar, fecha datetime 
+                             , foreign key (matricula) references coches(matricula),
                               foreign key (dni) references clientes(dni))""")
 
             cursor.execute("""create table if not exists usuarios (id varchar primary key,contrasinal varchar(30) ) """)
@@ -92,9 +92,11 @@ class metodosBase:
         try:
             cursor = metodosBase.conectar(self)
             cursor.execute("""insert into ventas (matricula, dni, fecha) values (?,?,?)""", (matricula, dni, fecha))
-
+            numVenta=cursor.execute("Select MAX(numVenta)AS maximo from ventas").fetchall()
             metodosBase.bbdd.commit()
             metodosBase.cerrar(self)
+            return numVenta
+
 
         except dbapi2.DatabaseError as erroInsercion:
             print("Erro na inserción de datos: " + str(erroInsercion))
@@ -240,9 +242,41 @@ class metodosBase:
         metodosBase.cerrar(self)
         return coches
 
+    def listar_coches_matricula(self, matricula):
+        cursor = metodosBase.conectar(self)
+        resultados = cursor.execute("select * from coches where matricula=?", (matricula,))
+        coches = tuple(resultados.fetchall())
+        metodosBase.cerrar(self)
+        return coches
+
     def listar_clientes(self):
         cursor = metodosBase.conectar(self)
         resultados = cursor.execute("select * from clientes")
         clientes = tuple(resultados.fetchall())
         metodosBase.cerrar(self)
         return clientes
+
+    def listar_clientes_dni(self,dni):
+        cursor = metodosBase.conectar(self)
+        resultados = cursor.execute("select * from clientes where dni=?",(dni,))
+        clientes = tuple(resultados.fetchall())
+        metodosBase.cerrar(self)
+        return clientes
+
+    def listar_ventas_marca(self):
+        cursor=metodosBase.conectar(self)
+        resultados=cursor.execute("select count (matricula), marca from coches where vendido=1 group by marca")
+        coches = tuple(resultados)
+
+
+        metodosBase.cerrar(self)
+        return coches
+
+    def listar_ventas_anoMatricula(self):
+        cursor=metodosBase.conectar(self)
+        resultados=cursor.execute("select count (matricula), ano from coches where vendido=1 group by ano")
+        coches = tuple(resultados)
+
+
+        metodosBase.cerrar(self)
+        return coches
