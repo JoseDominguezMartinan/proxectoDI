@@ -14,70 +14,14 @@ class Coches(Gtk.Window):
 
 
     def __init__(self):
+
+        #ventá para a xestión dos coches
         Gtk.Window.__init__(self,title="Gestión de coches")
         self.set_default_size(600, 400)
         self.set_resizable(False)
         self.set_border_width(5)
 
-        self.modelos = Gtk.ListStore(str, str, str, int, int, str, str, bool, str, int)
-
-        self.filtro_categoria = self.modelos.filter_new()
-
-        self.vista = Gtk.TreeView(model=self.filtro_categoria)
-
-
-
-        self.parametro_filtro_categoria = None
-
-        """almacenaremos aqui las coordenadas para modificaciones posteriormente"""
-        self.x=0
-        self.y=2
-        """para controlar que seu pueda modificar o no el togled del treeview"""
-        self.modificable=False
-
-
-
-        '''ventana 1 : compra de coches'''
-
-        vbox=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, homogeneous=False)
-        vbox.override_background_color(0, Gdk.RGBA(0.937, 0.914, 0.898, 0.5))
-        self.add(vbox)
-
-        boxCompra=Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=50, homogeneous=False)
-
-        gridCompra=Gtk.Grid(margin_left=150)
-
-
-
-        self.filtro_categoria.set_visible_func(self.categoria_filtro)
-
-        self.boxVenta=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, homogeneous=False)
-
-        labelTitulo = Gtk.Label(label="COMPRA DE COCHES", margin_bottom=20)
-        self.botonOk = Gtk.Button(label="COMPRAR", margin_top=20, margin_left=80, margin_right=80)
-
-        labelTituloVenta=Gtk.Label(label="VENTA DE COCHES", margin_bottom=20)
-        self.boxVenta.add(labelTituloVenta)
-
-
-        self.botonVender = Gtk.Button(label="Vender")
-        self.botonModificar = Gtk.Button(label="Modificar")
-        self.botonModificar.connect("clicked", self.modificar_clicked)
-        self.botonSalir = Gtk.Button(label="Salir", margin_left=625)
-        self.botonSalir2 = Gtk.Button(label="Salir", margin_left=25)
-        self.botonLimpar = Gtk.Button(label="Limpiar", margin_left=600)
-        self.botonInforme=Gtk.Button(label="Informe")
-        self.botonSalir.connect("clicked", self.on_close_clicked)
-        self.botonSalir2.connect("clicked", self.on_close_clicked)
-        self.botonLimpar.connect("clicked",self.limpar_clicked)
-        self.botonVender.connect("clicked", self.vender_clicked)
-        self.botonInforme.connect("clicked",self.crear_informe)
-
-        self.boxBotonesVentas = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        self.boxBotonesVentas.add(self.botonLimpar)
-        self.boxBotonesVentas.add(self.botonSalir2)
-
-        '''''''# para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma'''
+        # para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma
         cssProvider = Gtk.CssProvider()
         cssProvider.load_from_path('estilos.css')
         screen = Gdk.Screen.get_default()
@@ -85,22 +29,58 @@ class Coches(Gtk.Window):
         styleContext.add_provider_for_screen(screen, cssProvider,
                                              Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        boxCompra.add(labelTitulo)
-        boxCompra.add(gridCompra)
+        #contedores que precisamos para as ventás:
 
-        boxCompra.add(self.botonOk)
-        boxCompra.add(self.boxBotonesVentas)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, homogeneous=False)
+        vbox.override_background_color(0, Gdk.RGBA(0.937, 0.914, 0.898, 0.5))
+        self.add(vbox)
 
-        stack=Gtk.Stack()
+        boxCompra = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=50, homogeneous=False)
+        gridCompra = Gtk.Grid(margin_left=150)
+
+        self.boxVenta = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6, homogeneous=False)
+
+        self.boxBotonesVentas = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+
+        self.botonesBox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin_top=10)
+
+        stack = Gtk.Stack()
         stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         stack.set_transition_duration(1000)
 
+        stack_switcher = Gtk.StackSwitcher()
+        stack_switcher.set_stack(stack)
+        vbox.pack_start(stack_switcher, True, True, 0)
+        vbox.pack_start(stack, True, True, 0)
 
-        stack.add_titled(boxCompra, "compra","Compra")
+        self.modelos = Gtk.ListStore(str, str, str, int, int, str, str, bool, str, int)
 
-        stack.add_titled(self.boxVenta,"venta","Venta")
+        self.filtro_categoria = self.modelos.filter_new()
 
-        self.labelMatricula=Gtk.Label()
+        self.vista = Gtk.TreeView(model=self.filtro_categoria)
+
+        self.parametro_filtro_categoria = None
+
+        #variables que precisamos:q
+        #almacenaremos aqui las coordenadas para modificaciones posteriormente
+        self.x=0
+        self.y=2
+        #para controlar que seu pueda modificar o no el togled del treeview
+        self.modificable=False
+
+        #engadimos ao stack os titulos das duas ventás que vai a ter
+        stack.add_titled(boxCompra, "compra", "Compra")
+        stack.add_titled(self.boxVenta, "venta", "Venta")
+
+
+        #necesario para a opcion de filtrar
+        self.filtro_categoria.set_visible_func(self.categoria_filtro)
+
+        #labels
+        labelTitulo = Gtk.Label(label="COMPRA DE COCHES", margin_bottom=20)
+        labelTituloVenta=Gtk.Label(label="VENTA DE COCHES", margin_bottom=20)
+        self.boxVenta.add(labelTituloVenta)
+        self.labelMatricula = Gtk.Label()
         self.labelMarca = Gtk.Label()
         self.labelModelo = Gtk.Label()
         self.labelKm = Gtk.Label()
@@ -122,17 +102,46 @@ class Coches(Gtk.Window):
         self.labelCaballos.set_markup("  Caballos  ")
         self.labelClase.set_markup("  Clase  ")
 
-        self.entryMatricula=Gtk.Entry()
+        #botons e entrys
+        self.botonOk = Gtk.Button(label="COMPRAR", margin_top=20, margin_left=80, margin_right=80)
+        self.botonVender = Gtk.Button(label="Vender")
+        self.botonModificar = Gtk.Button(label="Modificar")
+        self.botonModificar.connect("clicked", self.modificar_clicked)
+        self.botonSalir = Gtk.Button(label="Salir", margin_left=625)
+        self.botonSalir2 = Gtk.Button(label="Salir", margin_left=25)
+        self.botonLimpar = Gtk.Button(label="Limpiar", margin_left=600)
+        self.botonInforme=Gtk.Button(label="Informe")
+
+        self.entryMatricula = Gtk.Entry()
         self.entryMarca = Gtk.Entry()
         self.entryModelo = Gtk.Entry()
         self.entryKm = Gtk.Entry()
         self.entryPrecio = Gtk.Entry()
-        self.entryAno=Gtk.Entry()
+        self.entryAno = Gtk.Entry()
         self.entryMotor = Gtk.Entry()
         self.entryCaballos = Gtk.Entry()
 
         self.checkAutomatico = Gtk.CheckButton()
 
+        #eventos
+        self.botonSalir.connect("clicked", self.on_close_clicked)
+        self.botonSalir2.connect("clicked", self.on_close_clicked)
+        self.botonLimpar.connect("clicked",self.limpar_clicked)
+        self.botonVender.connect("clicked", self.vender_clicked)
+        self.botonInforme.connect("clicked",self.crear_informe)
+        self.botonOk.connect("clicked", self.on_open_clicked)
+
+        #engadimos as caixas correspondentes
+        self.boxBotonesVentas.add(self.botonLimpar)
+        self.boxBotonesVentas.add(self.botonSalir2)
+
+        #engadimos as caixas correspondentes
+        boxCompra.add(labelTitulo)
+        boxCompra.add(gridCompra)
+        boxCompra.add(self.botonOk)
+        boxCompra.add(self.boxBotonesVentas)
+
+        #list store para o combo box
         self.lista_clases =Gtk.ListStore(int,str)
         self.lista_clases.append([0,""])
         self.lista_clases.append([1,"A"])
@@ -148,9 +157,7 @@ class Coches(Gtk.Window):
         self.comboClases = Gtk.ComboBox.new_with_model_and_entry(self.lista_clases)
         self.comboClases.set_entry_text_column(1)
 
-
-        self.botonOk.connect("clicked", self.on_open_clicked)
-
+        #formateamos como van a aparecer os widgets dentro do grid que creamos para a venta de insercion de coches
         gridCompra.add(self.labelMatricula)
         gridCompra.attach(self.entryMatricula,1,0,2,1)
         gridCompra.attach(self.labelMarca,3,0,1,1)
@@ -172,17 +179,14 @@ class Coches(Gtk.Window):
         gridCompra.attach(self.labelAutomatico, 3, 4, 1, 1)
         gridCompra.attach(self.checkAutomatico, 4, 4, 2, 1)
 
-        stack_switcher = Gtk.StackSwitcher()
-        stack_switcher.set_stack(stack)
-        vbox.pack_start(stack_switcher,True,True,0)
-        vbox.pack_start(stack,True,True,0)
+
 
         '''ventana 2: venta de coches'''
 
+        #chamamos ao metodo da base de datos para listar os coches e asi amosalos na nosa taboa
         self.coches=metodosBase.metodosBase.listar_coches(self)
 
-
-
+        #recorremos esta lista
         for coche in self.coches:
             self.modelos.append([coche[0],
                                  coche[1], coche[2], coche[3],
@@ -190,11 +194,11 @@ class Coches(Gtk.Window):
                                  coche[6],
                                  coche[7], coche[8], coche[9]])
 
-
+        #xeramos un scroll para meter dentro a taboa
         self.scrollTree = Gtk.ScrolledWindow(hexpand=True, vexpand=True)
-
         self.scrollTree.add_with_viewport(self.vista)
 
+        #elementos para a estructura da taboa
         self.seleccion = self.vista.get_selection()
         self.celdaText = Gtk.CellRendererText()
         self.celdaText.connect("edited", self.on_celdaText_edited, self.modelos)
@@ -205,6 +209,7 @@ class Coches(Gtk.Window):
 
         self.vista.connect("button-press-event", self.on_pressed)
 
+        # damos formato a taboa
         self.columnaMatricula = Gtk.TreeViewColumn('Matricula', self.celdaText, text=0)
         self.columnaMatricula.set_sort_column_id(0)
         self.columnaMatricula.colnr = 0
@@ -258,7 +263,7 @@ class Coches(Gtk.Window):
         self.boxVenta.add(self.scrollTree)
 
 
-
+        #para o filtrado:
         self.filtrarBox=Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin_top=20)
         self.entryFiltrar=Gtk.Entry()
 
@@ -284,7 +289,7 @@ class Coches(Gtk.Window):
         self.boxVenta.add(self.filtrarBox)
 
 
-        self.botonesBox=Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, margin_top=10)
+        #botons que aparecer na parte inferior da ventá para modificar , xenerar informe, vender e sair
         self.botonesBox.add(self.botonModificar)
         self.botonesBox.add(self.botonInforme)
         self.botonesBox.add(self.botonVender)
@@ -300,7 +305,12 @@ class Coches(Gtk.Window):
 
 
     def on_open_clicked(self,button):
-
+        '''
+        metodo que he chamado dende o stack de comprar, para engadir coches a base de datos e a taboa
+        :param button: evento que ocorre ao pulsar o boton
+        :return: engade unha entrada cos datos que metimos, na base de datos e na taboo da ventá venta
+        '''
+        #error: devolvemos true no caso de que a operacion saise ven , false no caso de que saise mal
         error=metodosBase.metodosBase.insertar_datos_coches(self,self.entryMatricula.get_text(),self.entryMarca.get_text(),
                                                       self.entryModelo.get_text(),
                                                       self.entryKm.get_text(),self.entryAno.get_text(),
@@ -309,7 +319,8 @@ class Coches(Gtk.Window):
                                                       self.checkAutomatico.get_active(),
                                                       self.entryMotor.get_text(),
                                                       self.entryCaballos.get_text(),
-                                                      False)
+                                                     False)
+        #se non ocurriu erro ao intentar engadir os datos na base de datos os engadimps tamen na taboa
         if(error==True):
 
             self.modelos.append([self.entryMatricula.get_text(), self.entryMarca.get_text(),
@@ -321,9 +332,10 @@ class Coches(Gtk.Window):
                                                           self.entryMotor.get_text(),
                                                           int(self.entryCaballos.get_text())]
                                                         )
-
+            #limpamos os entry
             self.limpar_clicked(self)
 
+        #no caso de error mostramos un mensaxe avisando
         else:
             messageDialog = Gtk.MessageDialog(parent=self,
                                               flags=Gtk.DialogFlags.MODAL,
@@ -337,10 +349,17 @@ class Coches(Gtk.Window):
 
 
     def on_btnFiltrar_clicked(self, control):
+        '''
+        metodo que e chamado ao pulsar o boton filtrar
+        :param control: evento que salta ao pulsar o boton
+        :return: cambia o contido da taboa para mostrar so a informacion pertinente coa nosa busqueda
+        '''
 
+        #recollemos o valor polo que queremos filtrar
         self.punteiro=self.entryFiltrar.get_text()
+        #recollemos a categoria pola que queremos filtrar
         self.categoria = self.lista_filtrar[self.comboFiltrar.get_active()][1]
-
+        #recollemos o obtido na busqueda
         self.parametro_filtro_categoria = self.entryFiltrar.get_text()
         if self.parametro_filtro_categoria=="True":
             self.parametro_filtro_categoria=True
@@ -349,8 +368,7 @@ class Coches(Gtk.Window):
         if self.parametro_filtro_categoria=="":
             self.parametro_filtro_categoria=None
 
-
-
+        #chamase a refilter
         self.filtro_categoria.refilter()
         self.entryFiltrar.set_text("")
 
@@ -359,7 +377,12 @@ class Coches(Gtk.Window):
 
     def categoria_filtro(self, modelo,  punteiro, datos):
 
-
+        '''
+        en caso de que o filtro obtuvera resultados, retorna true, en caso contrario retorna false.
+        comparase o campo co nombre da categoria coa que filtramos e o contido
+        :return true: en caso de que devolva coincidencia
+        :return false: en caso de que non sea asi
+        '''
 
         if self.parametro_filtro_categoria is None:
             return True
@@ -398,9 +421,19 @@ class Coches(Gtk.Window):
                     return False
 
     def on_close_clicked(self, control):
+        '''
+        metodo chamado ao pulsar no boton sair, cerra a ventá actual
+        :param control: evento que ocorre ao pulsar o boton
+        :return: cerra a ventá actual
+        '''
         Coches.destroy(self)
 
     def limpar_clicked(self, control):
+        '''
+        limpa os cadros de texto da ventá
+        :param control: evento que ocorre ao pulsar o botón
+        :return: None
+        '''
 
         self.entryMatricula.set_text("")
         self.entryModelo.set_text("")
@@ -414,6 +447,14 @@ class Coches(Gtk.Window):
         self.entryMotor.set_text("")
 
     def on_pressed(self, trview, event):
+        '''
+        evento que ocurre ao pulsar sobre un dos elementos do treview
+        :param trview: treeview enteiro, taboa onde se amosan os datos
+        :param event: evento que ocurre ao pulsar
+        :return: None
+        recolle as cordenadas do elemento clickado no treeview
+
+        '''
         try:
             path, col, x, y = trview.get_path_at_pos(event.x, event.y)
             coordenada=(col.colnr, path.to_string())
@@ -425,8 +466,19 @@ class Coches(Gtk.Window):
 
 
     def on_celdaText_edited (self, control, punteiro, texto, modelo):
+        '''
+        salta no momento de editar unha entrada do treeview
+        :param control: evento
+        :param punteiro: indica a fila do treeview afectada
+        :param texto: nova entrada para o campo editado
+        :param modelo: modelo do tree view que foi modificado
+        :return:
+        '''
+        #recollemos a columna na que clicamos antes
         x=int(self.x)
+        #cambiamos no modelo o texto polo que introducimos novo
         modelo[punteiro][x] = texto
+        #modificamos os datos na base de datos
         metodosBase.metodosBase.modificar_datos_coches(self,self.modelos[punteiro][0],self.modelos[punteiro][1]
                                                        ,self.modelos[punteiro][2],self.modelos[punteiro][3],self.modelos[punteiro][4]
                                                        ,self.modelos[punteiro][5],self.modelos[punteiro][6],self.modelos[punteiro][7]
@@ -436,11 +488,22 @@ class Coches(Gtk.Window):
 
 
     def modificar_clicked(self, control):
+        '''
+        salta no momento de pulsar o boton modificar, o que fai e habilitar o tree view para a sua edición
+        :param control: evento
+        :return: None
+        '''
         self.celdaText.set_property("editable", True)
         self.modificable=True
 
 
     def on_cell_toggled(self, widget, punteiro):
+        '''
+        salta no momento de modificar o togled button do tree view
+        :param widget: widget no cal pulsamos
+        :param punteiro: columna modificada
+        :return:
+        '''
         if(self.modificable==True):
             self.modelos[punteiro][7] = not self.modelos[punteiro][7]
 
@@ -452,7 +515,11 @@ class Coches(Gtk.Window):
             self.modificable=False
 
     def vender_clicked(self, evt):
-
+        '''
+        funcion que salta no momentos no que pulsamos o boton vender
+        :param evt: evento
+        :return: None, abre unha ventana nova para a venda do coche, e borra a fila marcada do modelo
+        '''
 
         try:
 
@@ -469,6 +536,11 @@ class Coches(Gtk.Window):
 
 
     def crear_informe(self,evt):
+        '''
+        ao pulsar o boton informe  , xerase o informe automaticamente, para isto chamamos ao metodo da clase adecuada e mandamos un mensaxe
+        :param evt: evento
+        :return:None
+        '''
         informeVentas.informeVentas.crear_informe(self)
         messageDialog = Gtk.MessageDialog(parent=self,
                                           flags=Gtk.DialogFlags.MODAL,
