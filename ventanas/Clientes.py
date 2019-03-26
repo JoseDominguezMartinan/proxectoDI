@@ -13,6 +13,10 @@ class Clientes(Gtk.Window):
 
 
     def __init__(self):
+        '''
+        constructor
+        se genera todos los boxes y widgets de la ventana
+        '''
         Gtk.Window.__init__(self,title="Gestión de clientes")
         self.set_default_size(600, 400)
         self.set_resizable(False)
@@ -243,6 +247,11 @@ class Clientes(Gtk.Window):
 
 
     def on_open_clicked(self,button):
+        '''
+        funcion para insertar clientes en la base de datos, se añade tambien a la vista del tree view
+        :param button: evento
+        :return: None
+        '''
 
         error=metodosBase.metodosBase.insertar_datos_clientes(self, self.entryDni.get_text(), self.entryNome.get_text(),
                                                             self.entryFecha.get_text(),
@@ -272,6 +281,11 @@ class Clientes(Gtk.Window):
 
 
     def on_btnFiltrar_clicked(self, control):
+        '''
+        para filtrar por un parametro de busqueda
+        :param control: evento
+        :return:None
+        '''
 
         self.punteiro=self.entryFiltrar.get_text()
         self.categoria = self.lista_filtrar[self.comboFiltrar.get_active()][1]
@@ -293,7 +307,13 @@ class Clientes(Gtk.Window):
 
 
     def categoria_filtro(self, modelo,  punteiro, datos):
-
+        '''
+        devuelve en caso de tener coincidencias las entradas que corresponden con la busqueda
+        :param modelo: modelo del tree view donde se muestran los datos
+        :param punteiro: fila afectada
+        :param datos: datos de la fila
+        :return: boolean, true si hay coincidencia , false en caso contrario
+        '''
 
 
         if self.parametro_filtro_categoria is None:
@@ -333,9 +353,19 @@ class Clientes(Gtk.Window):
                     return False
 
     def on_close_clicked(self, control):
+        '''
+        cierra la ventana actual
+        :param control: evento
+        :return: None
+        '''
         Clientes.destroy(self)
 
     def limpar_clicked(self, control):
+        '''
+        limpia los entry text del formulario
+        :param control: evento
+        :return: None
+        '''
 
         self.entryDni.set_text("")
         self.entryFecha.set_text("")
@@ -345,6 +375,12 @@ class Clientes(Gtk.Window):
         self.entryCodPostal.set_text("")
 
     def on_pressed(self, trview, event):
+        '''
+        salta al dar click en una de las filas del treeview
+        :param trview: tabla donde se muestra la información
+        :param event: evento
+        :return: None
+        '''
         try:
             path, col, x, y = trview.get_path_at_pos(event.x, event.y)
             coordenada=(col.colnr, path.to_string())
@@ -356,6 +392,14 @@ class Clientes(Gtk.Window):
 
 
     def on_celdaText_edited (self, control, punteiro, texto, modelo):
+        '''
+        ocurre cando se edita a celda seleccionada
+        :param control: evento
+        :param punteiro: fila marcada
+        :param texto: texto que se modificou
+        :param modelo: modelo do tree view que se esta mostrando por pantalla
+        :return: None
+        '''
         x=int(self.x)
         modelo[punteiro][x] = texto
         metodosBase.metodosBase.modificar_datos_clientes(self,self.modelos[punteiro][0],self.modelos[punteiro][1]
@@ -366,12 +410,22 @@ class Clientes(Gtk.Window):
 
 
     def modificar_clicked(self, control):
+        '''
+        ao presionar o boton modificar , habilitamos a edicion do tree view
+        :param control: evento
+        :return: None
+        '''
         self.celdaText.set_property("editable", True)
         self.modificable=True
 
 
 
     def borrar_clicked(self, evt):
+        '''
+        borra a fila marcada no tree view, lanza un cadro de confirmación para que non se borre nada por erro
+        :param evt: evento
+        :return: None 
+        '''
         y = int(self.y)
         x= int(self.x)
         messageDialog = Gtk.MessageDialog(parent=self,

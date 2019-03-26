@@ -1,0 +1,229 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ventanas.Login &#8212; documentación de Documentacion proxecto - 0.0.1</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Código fuente para ventanas.Login</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">gi</span>
+
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="k">import</span> <span class="n">Gtk</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="k">import</span> <span class="n">Gdk</span>
+<span class="kn">from</span> <span class="nn">ventanas</span> <span class="k">import</span> <span class="n">Principal</span>
+<span class="kn">from</span> <span class="nn">baseDatos</span> <span class="k">import</span> <span class="n">metodosBase</span>
+
+
+<div class="viewcode-block" id="Login"><a class="viewcode-back" href="../../ventanas.html#ventanas.Login.Login">[documentos]</a><span class="k">class</span> <span class="nc">Login</span> <span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        constructor da clase, aqui definimos toda a ventá</span>
+<span class="sd">        declaramos unha ventá, con un contedor, que a sua vez disporá de un contedor dentro para almacenar a foto, un cotedor co resto de widgets, e o boton</span>
+<span class="sd">        por usabilidade o cambiarase o focus ao cuadro de texto inferior se pulsamos intro no cadro superior, e accederase ao menu se estamos no ultimo e pulsamos intro, como se pulsasemos o boton</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># venta de login da aplicacion, cun tamaño determinado e non se pode redimensionar</span>
+        <span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;CompraVenta&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_default_size</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_resizable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma</span>
+        <span class="n">cssProvider</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CssProvider</span><span class="p">()</span>
+        <span class="n">cssProvider</span><span class="o">.</span><span class="n">load_from_path</span><span class="p">(</span><span class="s1">&#39;estilos.css&#39;</span><span class="p">)</span>
+        <span class="n">screen</span> <span class="o">=</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">Screen</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+        <span class="n">styleContext</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">StyleContext</span><span class="p">()</span>
+        <span class="n">styleContext</span><span class="o">.</span><span class="n">add_provider_for_screen</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">cssProvider</span><span class="p">,</span>
+                                             <span class="n">Gtk</span><span class="o">.</span><span class="n">STYLE_PROVIDER_PRIORITY_APPLICATION</span><span class="p">)</span>
+
+        <span class="c1">#contedores onde vou a meter os widgets da venta</span>
+        <span class="n">caixa2</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">)</span>
+        <span class="n">caixa</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">spacing</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">)</span>
+
+        <span class="c1">#para cambiar de cor a caixa , utilizo libreria gdk, utra forma de dar un estilo</span>
+
+        <span class="n">caixa</span><span class="o">.</span><span class="n">override_background_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">RGBA</span><span class="p">(</span><span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.914</span><span class="p">,</span> <span class="mf">0.898</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+
+        <span class="c1">#engadimos a caixa a ventá</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">caixa</span><span class="p">)</span>
+
+        <span class="c1">#engadimos os widgets as ventás</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">margin_bottom</span><span class="o">=</span><span class="mi">85</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">imagen</span><span class="o">.</span><span class="n">set_from_file</span><span class="p">(</span><span class="s2">&quot;login.JPG&quot;</span><span class="p">)</span>
+
+        <span class="n">caixa</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imagen</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lblNome</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;USUARIO:&quot;</span><span class="p">,</span> <span class="n">margin_top</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtNome</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">margin_left</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">margin_right</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+        <span class="n">caixa2</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lblNome</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">caixa2</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">txtNome</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lblPass</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;CONTRASINAL:&quot;</span><span class="p">,</span> <span class="n">margin_top</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">margin_bottom</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPass</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">margin_bottom</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">margin_left</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">margin_right</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPass</span><span class="o">.</span><span class="n">set_visibility</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">caixa2</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lblPass</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">caixa2</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">txtPass</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">caixa</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">caixa2</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;CONECTAR&quot;</span><span class="p">,</span> <span class="n">margin_bottom</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">margin_left</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">margin_right</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+
+        <span class="n">caixa2</span><span class="o">.</span><span class="n">pack_end</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boton</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1">#para cerrar a ventana</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;destroy&quot;</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">main_quit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+
+
+        <span class="c1">#sinais para chamadas aos metodos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPass</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;activate&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_open_clicked</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtNome</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;activate&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_txt_clicked</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_open_clicked</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Login.on_open_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Login.Login.on_open_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">on_open_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo que é chamado tanto o facer enter no cuadro de texto do contrasinal como ao darlle o boton</span>
+<span class="sd">        :param evt: evento que ocorre ao ser chamado</span>
+<span class="sd">        :return: non devolve nada , abre o menú principal no caso de que o usuario este na base de datos, en caso contrario , da un aviso de erro</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1">#comprobamos se o usuario introducido coincide con algunha entrada da taboa usuarios da base de datos</span>
+        <span class="n">logueado</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">compobrar_usuarios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">txtNome</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">txtPass</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+        <span class="c1"># en caso de que coincida, abrimos o menu principal , se non mostramos un aviso</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">logueado</span><span class="o">==</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">principal</span> <span class="o">=</span> <span class="n">Principal</span><span class="o">.</span><span class="n">Principal</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">txtNome</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">txtPass</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">messageDialog</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                              <span class="n">flags</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">DialogFlags</span><span class="o">.</span><span class="n">MODAL</span><span class="p">,</span>
+                                              <span class="nb">type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+                                              <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+                                              <span class="n">message_format</span><span class="o">=</span><span class="s2">&quot;USUARIO O CONTRASEÑA INCORRECTOS&quot;</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">=</span><span class="n">messageDialog</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">response</span><span class="o">==</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">):</span>
+                <span class="n">messageDialog</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Login.on_txt_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Login.Login.on_txt_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">on_txt_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">evt</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo que e chamado cando pulsamos intro no cadro de texto do nome</span>
+<span class="sd">        :param evt: evento que ocorre ao ser chamado o metodo</span>
+<span class="sd">        :return: nada, cambia o cadro de texto que ten o focus, faise por usabilidade</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">txtPass</span><span class="o">.</span><span class="n">grab_focus</span><span class="p">()</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">Login</span><span class="p">()</span>
+    <span class="n">Gtk</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+
+
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Documentacion proxecto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guia_uso.html">Guia de uso para su evaluación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">projectCompraVenta</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jose.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

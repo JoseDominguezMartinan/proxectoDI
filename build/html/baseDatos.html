@@ -1,0 +1,358 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>paquete baseDatos &#8212; documentación de Documentacion proxecto - 0.0.1</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Paquete de las ventanas" href="ventanas.html" />
+    <link rel="prev" title="projectCompraVenta" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="paquete-basedatos">
+<h1>paquete baseDatos<a class="headerlink" href="#paquete-basedatos" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="submodulos">
+<h2>Submodulos<a class="headerlink" href="#submodulos" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="module-baseDatos.metodosBase">
+<span id="basedatos-metodosbase-module"></span><h2>baseDatos.metodosBase module<a class="headerlink" href="#module-baseDatos.metodosBase" title="Enlazar permanentemente con este título">¶</a></h2>
+<dl class="class">
+<dt id="baseDatos.metodosBase.metodosBase">
+<em class="property">class </em><code class="descclassname">baseDatos.metodosBase.</code><code class="descname">metodosBase</code><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(en Python versión 3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.borrar_datos_clientes">
+<code class="descname">borrar_datos_clientes</code><span class="sig-paren">(</span><em>dni</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.borrar_datos_clientes"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.borrar_datos_clientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para borrar os datos da taboa clientes
+:param dni: dni do cliente a borrar
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.borrar_datos_coches">
+<code class="descname">borrar_datos_coches</code><span class="sig-paren">(</span><em>matricula</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.borrar_datos_coches"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.borrar_datos_coches" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para borrar entradas da taboa coches
+:param matricula:matricula do coche a borrar
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.borrar_datos_usuarios">
+<code class="descname">borrar_datos_usuarios</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.borrar_datos_usuarios"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.borrar_datos_usuarios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>borrar datos dos usuarios
+:param id: identificador de usuario
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.borrar_datos_ventas">
+<code class="descname">borrar_datos_ventas</code><span class="sig-paren">(</span><em>matricula</em>, <em>dni</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.borrar_datos_ventas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.borrar_datos_ventas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para borrar datos da taboa ventas
+:param matricula: matricula do coche do que queremos borrar os datos
+:param dni: dni do cliente
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.cerrar">
+<code class="descname">cerrar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.cerrar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.cerrar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>cerra a conexion coa base de datos
+:return:None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.compobrar_usuarios">
+<code class="descname">compobrar_usuarios</code><span class="sig-paren">(</span><em>id</em>, <em>contrasinal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.compobrar_usuarios"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.compobrar_usuarios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para comprobar que o usuario introducido e contrasinal coincida con algun da base de datos
+:param id: identificador insertado
+:param contrasinal: contrasinal insertado
+:return: True en caso de que exista o usuario, False en caso contrario</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.conectar">
+<code class="descname">conectar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.conectar"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.conectar" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>xera a conexion coa base de datos
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.crear_tablas">
+<code class="descname">crear_tablas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.crear_tablas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.crear_tablas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para xerar as taboas da base de datos
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.insertar_datos_clientes">
+<code class="descname">insertar_datos_clientes</code><span class="sig-paren">(</span><em>dni</em>, <em>nome</em>, <em>fecha</em>, <em>telefono</em>, <em>direccion</em>, <em>codPostal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.insertar_datos_clientes"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.insertar_datos_clientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para insertar datos na taboa clientes
+:param dni: dni do cliente
+:param nome: nome do cliente
+:param fecha: fecha de nacemento
+:param telefono: telefono do cliente
+:param direccion: direccion do cliente
+:param codPostal: codigo postal do clietne
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.insertar_datos_coches">
+<code class="descname">insertar_datos_coches</code><span class="sig-paren">(</span><em>matricula</em>, <em>marca</em>, <em>modelo</em>, <em>km</em>, <em>ano</em>, <em>precio</em>, <em>clase</em>, <em>automatico</em>, <em>motor</em>, <em>caballos</em>, <em>vendido</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.insertar_datos_coches"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.insertar_datos_coches" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para insertar datos na taboa coches
+:param matricula: matricula do coche
+:param marca: marca do coche
+:param modelo: modelo do coche
+:param km: kilometrajo do coche no momento da compra
+:param ano: ano de matriculacion do coche
+:param precio: precio de venda do coche
+:param clase: categoria do coche , vai dende a (ultracompacto) ata todoterrenos
+:param automatico: booleano, si e true o coche ten transmision automatica, se e false non
+:param motor: cilindrada do coche
+:param caballos: caballaxe do coche
+:param vendido: os coches con este booleano a true non estan dispoñibles para a sua venda
+:return: True en caso de que se fixera todo ben , false en caso de ocorrer un erro</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.insertar_datos_usuarios">
+<code class="descname">insertar_datos_usuarios</code><span class="sig-paren">(</span><em>id</em>, <em>contrasinal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.insertar_datos_usuarios"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.insertar_datos_usuarios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodos para insertar datos na taboa de usuarios
+:param id: identificador de usuario
+:param contrasinal: contrasinal para acceder ao sistema
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.insertar_datos_ventas">
+<code class="descname">insertar_datos_ventas</code><span class="sig-paren">(</span><em>matricula</em>, <em>dni</em>, <em>fecha</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.insertar_datos_ventas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.insertar_datos_ventas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para insertar datos na taboa de ventas
+:param matricula: matricula do coche vendido
+:param dni: dni do cliente que adquiriu o coche
+:param fecha: fecha na que se vendeu o vehiculo
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.listar_clientes">
+<code class="descname">listar_clientes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.listar_clientes"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.listar_clientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para listar os clientes da base de datos
+:return: Clientes, lista cos datos do clientes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.listar_clientes_dni">
+<code class="descname">listar_clientes_dni</code><span class="sig-paren">(</span><em>dni</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.listar_clientes_dni"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.listar_clientes_dni" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para listar os clientes cun dni concreto
+:param dni: dni do cliente a buscar
+:return: clientes, lista cos datos do cliente</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.listar_coches">
+<code class="descname">listar_coches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.listar_coches"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.listar_coches" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para listar os coches todos da base de datos que non haxan sido vendidos, co fin de mostralos no programa para a sua venta
+:return: Coches, lista de todos os coches dispoñibles na base de datos</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.listar_coches_matricula">
+<code class="descname">listar_coches_matricula</code><span class="sig-paren">(</span><em>matricula</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.listar_coches_matricula"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.listar_coches_matricula" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para listar os coches por unha matricula determinada
+:param matricula: matricula do coche a encontrar
+:return: Coches, lista cos datos da coincidencia atopada</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.listar_ventas_anoMatricula">
+<code class="descname">listar_ventas_anoMatricula</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.listar_ventas_anoMatricula"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.listar_ventas_anoMatricula" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>lista de coches agrupado polo ano de matriculacion
+:return: coches, lista de datos dos coches agrupados por ano</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.listar_ventas_marca">
+<code class="descname">listar_ventas_marca</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.listar_ventas_marca"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.listar_ventas_marca" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para listar as ventas agrupandoas pola marca
+:return: coches, lista cos datos dos coches</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.modificar_datos_clientes">
+<code class="descname">modificar_datos_clientes</code><span class="sig-paren">(</span><em>dni</em>, <em>nome</em>, <em>fecha</em>, <em>telefono</em>, <em>direccion</em>, <em>codPostal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.modificar_datos_clientes"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.modificar_datos_clientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>modificar os datos dun cliente marcado
+:param dni: dni do cliente
+:param nome: nome do cliente
+:param fecha: fecha de nacemento do cliente
+:param telefono: telefono do cliente
+:param direccion: direccion do cliente
+:param codPostal: codigo postal do cliente
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.modificar_datos_coches">
+<code class="descname">modificar_datos_coches</code><span class="sig-paren">(</span><em>matricula</em>, <em>marca</em>, <em>modelo</em>, <em>km</em>, <em>ano</em>, <em>precio</em>, <em>clase</em>, <em>automatico</em>, <em>motor</em>, <em>caballos</em>, <em>vendido</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.modificar_datos_coches"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.modificar_datos_coches" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>modificar datos da taboa de datos coches
+:param matricula: matricula do coche a modificar
+:param marca: marca do coche a modificar
+:param modelo: modelo do coche
+:param km: kilometraje do coche
+:param ano: ano de matriculacion
+:param precio: precio de venta
+:param clase: clase do coche
+:param automatico: booleano que indica si e automatico(true) ou non (false)
+:param motor: cilindrada do coche
+:param caballos: potencia do cochen
+:param vendido: boolean True o coche xa foi vendido False non
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.modificar_datos_usuarios">
+<code class="descname">modificar_datos_usuarios</code><span class="sig-paren">(</span><em>id</em>, <em>contrasinal</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.modificar_datos_usuarios"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.modificar_datos_usuarios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para modificar os datos dun usuario
+:param id: identificador do usuario
+:param contrasinal: contrasinal do usuario
+:return: None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.modificar_datos_ventas">
+<code class="descname">modificar_datos_ventas</code><span class="sig-paren">(</span><em>matricula</em>, <em>dni</em>, <em>fecha</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.modificar_datos_ventas"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.modificar_datos_ventas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para modificar os datos sobre a venda dun vehiculo
+:param matricula: matricula do coche vendido
+:param dni: dni do dono do coche
+:param fecha: fecha de venta</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Devuelve:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="baseDatos.metodosBase.metodosBase.modificar_datoventa_coches">
+<code class="descname">modificar_datoventa_coches</code><span class="sig-paren">(</span><em>matricula</em>, <em>vendido</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/baseDatos/metodosBase.html#metodosBase.modificar_datoventa_coches"><span class="viewcode-link">[fuente]</span></a><a class="headerlink" href="#baseDatos.metodosBase.metodosBase.modificar_datoventa_coches" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>metodo para marcar que un coche foi vendido despois de facer esta operacion
+:param matricula: matricula do coche a modificar
+:param vendido: dato de vendido true ou false
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-baseDatos">
+<span id="contenidos-del-modulo"></span><h2>contenidos del modulo<a class="headerlink" href="#module-baseDatos" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Documentacion proxecto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guia_uso.html">Guia de uso para su evaluación</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">projectCompraVenta</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">paquete baseDatos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ventanas.html">Paquete de las ventanas</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">projectCompraVenta</a><ul>
+      <li>Previous: <a href="modules.html" title="capítulo anterior">projectCompraVenta</a></li>
+      <li>Next: <a href="ventanas.html" title="próximo capítulo">Paquete de las ventanas</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jose.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/baseDatos.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

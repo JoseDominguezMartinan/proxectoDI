@@ -1,0 +1,659 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ventanas.Coches &#8212; documentación de Documentacion proxecto - 0.0.1</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Código fuente para ventanas.Coches</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">distutils</span>
+
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span><span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="k">import</span> <span class="n">Gtk</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="k">import</span> <span class="n">Gdk</span>
+<span class="kn">from</span> <span class="nn">baseDatos</span> <span class="k">import</span> <span class="n">metodosBase</span>
+<span class="kn">from</span> <span class="nn">ventanas</span> <span class="k">import</span> <span class="n">venta</span>
+<span class="kn">from</span> <span class="nn">ventanas</span> <span class="k">import</span> <span class="n">Principal</span>
+<span class="kn">from</span> <span class="nn">platy</span> <span class="k">import</span> <span class="n">informeVentas</span>
+
+
+<div class="viewcode-block" id="Coches"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches">[documentos]</a><span class="k">class</span> <span class="nc">Coches</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="p">):</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1">#ventá para a xestión dos coches</span>
+        <span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Gestión de coches&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_default_size</span><span class="p">(</span><span class="mi">600</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_resizable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_border_width</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="c1"># para poder aplicar estilos , recurro al css , que se implementa en el archivo de la siguiente forma</span>
+        <span class="n">cssProvider</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CssProvider</span><span class="p">()</span>
+        <span class="n">cssProvider</span><span class="o">.</span><span class="n">load_from_path</span><span class="p">(</span><span class="s1">&#39;estilos.css&#39;</span><span class="p">)</span>
+        <span class="n">screen</span> <span class="o">=</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">Screen</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+        <span class="n">styleContext</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">StyleContext</span><span class="p">()</span>
+        <span class="n">styleContext</span><span class="o">.</span><span class="n">add_provider_for_screen</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">cssProvider</span><span class="p">,</span>
+                                             <span class="n">Gtk</span><span class="o">.</span><span class="n">STYLE_PROVIDER_PRIORITY_APPLICATION</span><span class="p">)</span>
+
+        <span class="c1">#contedores que precisamos para as ventás:</span>
+
+        <span class="n">vbox</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">homogeneous</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">override_background_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">RGBA</span><span class="p">(</span><span class="mf">0.937</span><span class="p">,</span> <span class="mf">0.914</span><span class="p">,</span> <span class="mf">0.898</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vbox</span><span class="p">)</span>
+
+        <span class="n">boxCompra</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">homogeneous</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">gridCompra</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Grid</span><span class="p">(</span><span class="n">margin_left</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxVenta</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">VERTICAL</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">homogeneous</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxBotonesVentas</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonesBox</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">,</span> <span class="n">margin_top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="n">stack</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Stack</span><span class="p">()</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">set_transition_type</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">StackTransitionType</span><span class="o">.</span><span class="n">SLIDE_LEFT_RIGHT</span><span class="p">)</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">set_transition_duration</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+        <span class="n">stack_switcher</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">StackSwitcher</span><span class="p">()</span>
+        <span class="n">stack_switcher</span><span class="o">.</span><span class="n">set_stack</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">stack_switcher</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtro_categoria</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="o">.</span><span class="n">filter_new</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeView</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filtro_categoria</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1">#variables que precisamos:q</span>
+        <span class="c1">#almacenaremos aqui las coordenadas para modificaciones posteriormente</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">=</span><span class="mi">2</span>
+        <span class="c1">#para controlar que seu pueda modificar o no el togled del treeview</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modificable</span><span class="o">=</span><span class="kc">False</span>
+
+        <span class="c1">#engadimos ao stack os titulos das duas ventás que vai a ter</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">add_titled</span><span class="p">(</span><span class="n">boxCompra</span><span class="p">,</span> <span class="s2">&quot;compra&quot;</span><span class="p">,</span> <span class="s2">&quot;Compra&quot;</span><span class="p">)</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">add_titled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boxVenta</span><span class="p">,</span> <span class="s2">&quot;venta&quot;</span><span class="p">,</span> <span class="s2">&quot;Venta&quot;</span><span class="p">)</span>
+
+
+        <span class="c1">#necesario para a opcion de filtrar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtro_categoria</span><span class="o">.</span><span class="n">set_visible_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categoria_filtro</span><span class="p">)</span>
+
+        <span class="c1">#labels</span>
+        <span class="n">labelTitulo</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;COMPRA DE COCHES&quot;</span><span class="p">,</span> <span class="n">margin_bottom</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">labelTituloVenta</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;VENTA DE COCHES&quot;</span><span class="p">,</span> <span class="n">margin_bottom</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxVenta</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">labelTituloVenta</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelMatricula</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelMarca</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelModelo</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelKm</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelAno</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelPrecio</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelClase</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelAutomatico</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelMotor</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelCaballos</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelMatricula</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;Matricula &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelMarca</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;  Marca  &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelModelo</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;Modelo&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelAno</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelKm</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;  Kilometros &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelPrecio</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;  Precio  &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelAutomatico</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;  Auto.  &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelMotor</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;  Motor  &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelCaballos</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;  Caballos  &quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelClase</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="s2">&quot;  Clase  &quot;</span><span class="p">)</span>
+
+        <span class="c1">#botons e entrys</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonOk</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;COMPRAR&quot;</span><span class="p">,</span> <span class="n">margin_top</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">margin_left</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">margin_right</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonVender</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Vender&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonModificar</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Modificar&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonModificar</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modificar_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonSalir</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Salir&quot;</span><span class="p">,</span> <span class="n">margin_left</span><span class="o">=</span><span class="mi">625</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonSalir2</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Salir&quot;</span><span class="p">,</span> <span class="n">margin_left</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonLimpar</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Limpiar&quot;</span><span class="p">,</span> <span class="n">margin_left</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonInforme</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Informe&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryMatricula</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryMarca</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryModelo</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryKm</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryPrecio</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryAno</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryMotor</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryCaballos</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkAutomatico</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CheckButton</span><span class="p">()</span>
+
+        <span class="c1">#eventos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonSalir</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_close_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonSalir2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_close_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonLimpar</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">limpar_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonVender</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vender_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonInforme</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">crear_informe</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonOk</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_open_clicked</span><span class="p">)</span>
+
+        <span class="c1">#engadimos as caixas correspondentes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxBotonesVentas</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonLimpar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxBotonesVentas</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonSalir2</span><span class="p">)</span>
+
+        <span class="c1">#engadimos as caixas correspondentes</span>
+        <span class="n">boxCompra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">labelTitulo</span><span class="p">)</span>
+        <span class="n">boxCompra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gridCompra</span><span class="p">)</span>
+        <span class="n">boxCompra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonOk</span><span class="p">)</span>
+        <span class="n">boxCompra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">boxBotonesVentas</span><span class="p">)</span>
+
+        <span class="c1">#list store para o combo box</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span> <span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;A&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="s2">&quot;D&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="s2">&quot;E&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span><span class="s2">&quot;MUSCLE&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="s2">&quot;4x4&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span><span class="s2">&quot;FAMILIAR&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span><span class="s2">&quot;DEPORTIVO&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboClases</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ComboBox</span><span class="o">.</span><span class="n">new_with_model_and_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboClases</span><span class="o">.</span><span class="n">set_entry_text_column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">#formateamos como van a aparecer os widgets dentro do grid que creamos para a venta de insercion de coches</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelMatricula</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryMatricula</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelMarca</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryMarca</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelModelo</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryModelo</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelPrecio</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryPrecio</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelKm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryKm</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelClase</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comboClases</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelAno</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryAno</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelMotor</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryMotor</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelCaballos</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryCaballos</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelAutomatico</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">gridCompra</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkAutomatico</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+
+
+        <span class="sd">&#39;&#39;&#39;ventana 2: venta de coches&#39;&#39;&#39;</span>
+
+        <span class="c1">#chamamos ao metodo da base de datos para listar os coches e asi amosalos na nosa taboa</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coches</span><span class="o">=</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">listar_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1">#recorremos esta lista</span>
+        <span class="k">for</span> <span class="n">coche</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coches</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">coche</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="n">coche</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">coche</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">coche</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                                 <span class="n">coche</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">coche</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
+                                 <span class="n">coche</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+                                 <span class="n">coche</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">coche</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">coche</span><span class="p">[</span><span class="mi">9</span><span class="p">]])</span>
+
+        <span class="c1">#xeramos un scroll para meter dentro a taboa</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollTree</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ScrolledWindow</span><span class="p">(</span><span class="n">hexpand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vexpand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollTree</span><span class="o">.</span><span class="n">add_with_viewport</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="p">)</span>
+
+        <span class="c1">#elementos para a estructura da taboa</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seleccion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CellRendererText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;edited&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_celdaText_edited</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">celdaButton</span><span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CellRendererToggle</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">celdaButton</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;toggled&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_cell_toggled</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;editable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;button-press-event&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_pressed</span><span class="p">)</span>
+
+        <span class="c1"># damos formato a taboa</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMatricula</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Matricula&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMatricula</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMatricula</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaMatricula</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMarca</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Marca&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMarca</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMarca</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaMarca</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaModelo</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Modelo&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaModelo</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaModelo</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaModelo</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaKm</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Kilometros&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaKm</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaKm</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaKm</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaAno</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Año&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaAno</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaAno</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaAno</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaPrecio</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Precio&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaPrecio</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaPrecio</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaPrecio</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaClase</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Clase&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaClase</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaClase</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">6</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaClase</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaAutomatico</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Automatico&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaButton</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaAutomatico</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaAutomatico</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaAutomatico</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMotor</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Motor&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMotor</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaMotor</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaMotor</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaCaballos</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span class="p">(</span><span class="s1">&#39;Caballos&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaCaballos</span><span class="o">.</span><span class="n">set_sort_column_id</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnaCaballos</span><span class="o">.</span><span class="n">colnr</span> <span class="o">=</span> <span class="mi">9</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnaCaballos</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxVenta</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollTree</span><span class="p">)</span>
+
+
+        <span class="c1">#para o filtrado:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtrarBox</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">,</span> <span class="n">margin_top</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryFiltrar</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Marca&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Modelo&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Automatico&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Año&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;Precio&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;Clase&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboFiltrar</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ComboBox</span><span class="o">.</span><span class="n">new_with_model_and_entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboFiltrar</span><span class="o">.</span><span class="n">set_entry_text_column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonFiltrar</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Filtrar&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonFiltrar</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_btnFiltrar_clicked</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtrarBox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryFiltrar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtrarBox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comboFiltrar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtrarBox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonFiltrar</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxVenta</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filtrarBox</span><span class="p">)</span>
+
+
+        <span class="c1">#botons que aparecer na parte inferior da ventá para modificar , xenerar informe, vender e sair</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonesBox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonModificar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonesBox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonInforme</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonesBox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonVender</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">botonesBox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonSalir</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxVenta</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">botonesBox</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">categoria</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">comboFiltrar</span><span class="o">.</span><span class="n">get_active</span><span class="p">()][</span><span class="mi">0</span><span class="p">]</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+
+
+
+<div class="viewcode-block" id="Coches.on_open_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.on_open_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">on_open_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">button</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo que he chamado dende o stack de comprar, para engadir coches a base de datos e a taboa</span>
+<span class="sd">        :param button: evento que ocorre ao pulsar o boton</span>
+<span class="sd">        :return: engade unha entrada cos datos que metimos, na base de datos e na taboo da ventá venta</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">#error: devolvemos true no caso de que a operacion saise ven , false no caso de que saise mal</span>
+        <span class="n">error</span><span class="o">=</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">insertar_datos_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">entryMatricula</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">entryMarca</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">entryModelo</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">entryKm</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span><span class="bp">self</span><span class="o">.</span><span class="n">entryAno</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">entryPrecio</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">comboClases</span><span class="o">.</span><span class="n">get_active</span><span class="p">()][</span><span class="mi">1</span><span class="p">],</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">checkAutomatico</span><span class="o">.</span><span class="n">get_active</span><span class="p">(),</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">entryMotor</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">entryCaballos</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                     <span class="kc">False</span><span class="p">)</span>
+        <span class="c1">#se non ocurriu erro ao intentar engadir os datos na base de datos os engadimps tamen na taboa</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">error</span><span class="o">==</span><span class="kc">True</span><span class="p">):</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">entryMatricula</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">entryMarca</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                          <span class="bp">self</span><span class="o">.</span><span class="n">entryModelo</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                          <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryKm</span><span class="o">.</span><span class="n">get_text</span><span class="p">()),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryAno</span><span class="o">.</span><span class="n">get_text</span><span class="p">()),</span>
+                                                          <span class="bp">self</span><span class="o">.</span><span class="n">entryPrecio</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                          <span class="bp">self</span><span class="o">.</span><span class="n">lista_clases</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">comboClases</span><span class="o">.</span><span class="n">get_active</span><span class="p">()][</span><span class="mi">1</span><span class="p">],</span>
+                                                          <span class="bp">self</span><span class="o">.</span><span class="n">checkAutomatico</span><span class="o">.</span><span class="n">get_active</span><span class="p">(),</span>
+                                                          <span class="bp">self</span><span class="o">.</span><span class="n">entryMotor</span><span class="o">.</span><span class="n">get_text</span><span class="p">(),</span>
+                                                          <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryCaballos</span><span class="o">.</span><span class="n">get_text</span><span class="p">())]</span>
+                                                        <span class="p">)</span>
+            <span class="c1">#limpamos os entry</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">limpar_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1">#no caso de error mostramos un mensaxe avisando</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messageDialog</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                              <span class="n">flags</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">DialogFlags</span><span class="o">.</span><span class="n">MODAL</span><span class="p">,</span>
+                                              <span class="nb">type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+                                              <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+                                              <span class="n">message_format</span><span class="o">=</span><span class="s2">&quot;Inserte todos los datos y no introduzca matricula repetida&quot;</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">messageDialog</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">response</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">):</span>
+                <span class="n">messageDialog</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="Coches.on_btnFiltrar_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.on_btnFiltrar_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">on_btnFiltrar_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo que e chamado ao pulsar o boton filtrar</span>
+<span class="sd">        :param control: evento que salta ao pulsar o boton</span>
+<span class="sd">        :return: cambia o contido da taboa para mostrar so a informacion pertinente coa nosa busqueda</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1">#recollemos o valor polo que queremos filtrar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">punteiro</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entryFiltrar</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+        <span class="c1">#recollemos a categoria pola que queremos filtrar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">categoria</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lista_filtrar</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">comboFiltrar</span><span class="o">.</span><span class="n">get_active</span><span class="p">()][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1">#recollemos o obtido na busqueda</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entryFiltrar</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="o">==</span><span class="s2">&quot;True&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="o">=</span><span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="o">==</span><span class="s2">&quot;False&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="o">=</span><span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="o">=</span><span class="kc">None</span>
+
+        <span class="c1">#chamase a refilter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filtro_categoria</span><span class="o">.</span><span class="n">refilter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryFiltrar</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="Coches.categoria_filtro"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.categoria_filtro">[documentos]</a>    <span class="k">def</span> <span class="nf">categoria_filtro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span>  <span class="n">punteiro</span><span class="p">,</span> <span class="n">datos</span><span class="p">):</span>
+
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        en caso de que o filtro obtuvera resultados, retorna true, en caso contrario retorna false.</span>
+<span class="sd">        comparase o campo co nombre da categoria coa que filtramos e o contido</span>
+<span class="sd">        :return true: en caso de que devolva coincidencia</span>
+<span class="sd">        :return false: en caso de que non sea asi</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categoria</span><span class="o">==</span><span class="s2">&quot;Marca&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categoria</span> <span class="o">==</span> <span class="s2">&quot;Modelo&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categoria</span> <span class="o">==</span> <span class="s2">&quot;Automatico&quot;</span><span class="p">):</span>
+
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span>  <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categoria</span> <span class="o">==</span> <span class="s2">&quot;Año&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categoria</span> <span class="o">==</span> <span class="s2">&quot;Precio&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">5</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">categoria</span> <span class="o">==</span> <span class="s2">&quot;Clase&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">6</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parametro_filtro_categoria</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Coches.on_close_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.on_close_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">on_close_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo chamado ao pulsar no boton sair, cerra a ventá actual</span>
+<span class="sd">        :param control: evento que ocorre ao pulsar o boton</span>
+<span class="sd">        :return: cerra a ventá actual</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">Coches</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Coches.limpar_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.limpar_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">limpar_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        limpa os cadros de texto da ventá</span>
+<span class="sd">        :param control: evento que ocorre ao pulsar o botón</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryMatricula</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryModelo</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryMarca</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryKm</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryAno</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryPrecio</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboClases</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkAutomatico</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryCaballos</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryMotor</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Coches.on_pressed"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.on_pressed">[documentos]</a>    <span class="k">def</span> <span class="nf">on_pressed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trview</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        evento que ocurre ao pulsar sobre un dos elementos do treview</span>
+<span class="sd">        :param trview: treeview enteiro, taboa onde se amosan os datos</span>
+<span class="sd">        :param event: evento que ocurre ao pulsar</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        recolle as cordenadas do elemento clickado no treeview</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">path</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">trview</span><span class="o">.</span><span class="n">get_path_at_pos</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">coordenada</span><span class="o">=</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">colnr</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">coordenada</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">coordenada</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;erro, ten que marcar algo&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Coches.on_celdaText_edited"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.on_celdaText_edited">[documentos]</a>    <span class="k">def</span> <span class="nf">on_celdaText_edited</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">,</span> <span class="n">punteiro</span><span class="p">,</span> <span class="n">texto</span><span class="p">,</span> <span class="n">modelo</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        salta no momento de editar unha entrada do treeview</span>
+<span class="sd">        :param control: evento</span>
+<span class="sd">        :param punteiro: indica a fila do treeview afectada</span>
+<span class="sd">        :param texto: nova entrada para o campo editado</span>
+<span class="sd">        :param modelo: modelo do tree view que foi modificado</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1">#recollemos a columna na que clicamos antes</span>
+        <span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1">#cambiamos no modelo o texto polo que introducimos novo</span>
+        <span class="n">modelo</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">texto</span>
+        <span class="c1">#modificamos os datos na base de datos</span>
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">modificar_datos_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                                                       <span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span>
+                                                       <span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">5</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">6</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span>
+                                                       <span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">8</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">9</span><span class="p">],</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;editable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Coches.modificar_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.modificar_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">modificar_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        salta no momento de pulsar o boton modificar, o que fai e habilitar o tree view para a sua edición</span>
+<span class="sd">        :param control: evento</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">celdaText</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;editable&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modificable</span><span class="o">=</span><span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Coches.on_cell_toggled"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.on_cell_toggled">[documentos]</a>    <span class="k">def</span> <span class="nf">on_cell_toggled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">,</span> <span class="n">punteiro</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        salta no momento de modificar o togled button do tree view</span>
+<span class="sd">        :param widget: widget no cal pulsamos</span>
+<span class="sd">        :param punteiro: columna modificada</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modificable</span><span class="o">==</span><span class="kc">True</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">modificar_datos_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                                                        <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span>
+                                                        <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">5</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">6</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span>
+                                                         <span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">8</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="n">punteiro</span><span class="p">][</span><span class="mi">9</span><span class="p">],</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">modificable</span><span class="o">=</span><span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Coches.vender_clicked"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.vender_clicked">[documentos]</a>    <span class="k">def</span> <span class="nf">vender_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        funcion que salta no momentos no que pulsamos o boton vender</span>
+<span class="sd">        :param evt: evento</span>
+<span class="sd">        :return: None, abre unha ventana nova para a venda do coche, e borra a fila marcada do modelo</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">ventas</span> <span class="o">=</span> <span class="n">venta</span><span class="o">.</span><span class="n">Venta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span class="n">get_selection</span><span class="p">()</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">paths</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">get_selected_rows</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+                <span class="n">iterador</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="o">.</span><span class="n">get_iter</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">modelos</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">iterador</span><span class="p">)</span>
+
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error al abrir la ventana&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Coches.crear_informe"><a class="viewcode-back" href="../../ventanas.html#ventanas.Coches.Coches.crear_informe">[documentos]</a>    <span class="k">def</span> <span class="nf">crear_informe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">evt</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        ao pulsar o boton informe  , xerase o informe automaticamente, para isto chamamos ao metodo da clase adecuada e mandamos un mensaxe</span>
+<span class="sd">        :param evt: evento</span>
+<span class="sd">        :return:None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">informeVentas</span><span class="o">.</span><span class="n">informeVentas</span><span class="o">.</span><span class="n">crear_informe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">messageDialog</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                          <span class="n">flags</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">DialogFlags</span><span class="o">.</span><span class="n">MODAL</span><span class="p">,</span>
+                                          <span class="nb">type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+                                          <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+                                          <span class="n">message_format</span><span class="o">=</span><span class="s2">&quot;Informe generado con exito&quot;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">messageDialog</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">response</span> <span class="o">==</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">OK</span><span class="p">):</span>
+            <span class="n">messageDialog</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Documentacion proxecto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guia_uso.html">Guia de uso para su evaluación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">projectCompraVenta</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jose.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

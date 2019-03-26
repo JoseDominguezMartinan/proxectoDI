@@ -1,0 +1,536 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>baseDatos.metodosBase &#8212; documentación de Documentacion proxecto - 0.0.1</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Código fuente para baseDatos.metodosBase</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sqlite3</span> <span class="k">import</span> <span class="n">dbapi2</span>
+<span class="kn">from</span> <span class="nn">sqlite3.dbapi2</span> <span class="k">import</span> <span class="n">Connection</span><span class="p">,</span> <span class="n">Cursor</span>
+
+
+
+
+<div class="viewcode-block" id="metodosBase"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase">[documentos]</a><span class="k">class</span> <span class="nc">metodosBase</span><span class="p">:</span>
+    <span class="n">bbdd</span><span class="p">:</span> <span class="n">Connection</span>
+
+<div class="viewcode-block" id="metodosBase.conectar"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.conectar">[documentos]</a>    <span class="k">def</span> <span class="nf">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        xera a conexion coa base de datos</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span> <span class="o">=</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;gestionAplicacion.db&quot;</span><span class="p">)</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="c1"># Este código de creación da base de datos. Executar só unha vez</span>
+        <span class="k">return</span> <span class="n">cursor</span></div>
+
+
+
+<div class="viewcode-block" id="metodosBase.cerrar"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.cerrar">[documentos]</a>    <span class="k">def</span> <span class="nf">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        cerra a conexion coa base de datos</span>
+<span class="sd">        :return:None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroSQL</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro ao cerrar a conecion: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">erroSQL</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.crear_tablas"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.crear_tablas">[documentos]</a>    <span class="k">def</span> <span class="nf">crear_tablas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para xerar as taboas da base de datos</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;create table if not exists clientes (dni varchar primary key,nomeCompleto varchar(100),</span>
+<span class="s2">            fechaNac varchar, telefono varchar(12), direccion varchar(60),codPostal varchar(8) )&quot;&quot;&quot;</span><span class="p">)</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;create table if not exists coches (matricula varchar primary key,marca varchar(60),modelo varchar(60),</span>
+<span class="s2">                            kilometraje float, ano int,precio float, clase varchar(20),</span>
+<span class="s2">                             automatico boolean, motor varchar, caballos int, vendido boolean )&quot;&quot;&quot;</span><span class="p">)</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;create table if not exists ventas (numVenta integer primary key autoincrement, matricula varchar, dni varchar, fecha datetime </span>
+<span class="s2">                             , foreign key (matricula) references coches(matricula),</span>
+<span class="s2">                              foreign key (dni) references clientes(dni))&quot;&quot;&quot;</span><span class="p">)</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;create table if not exists usuarios (id varchar primary key,contrasinal varchar(30) ) &quot;&quot;&quot;</span><span class="p">)</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroSQL</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na creación da base de datos: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">erroSQL</span><span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A base de datos creada correctamente&quot;</span><span class="p">)</span></div>
+
+    <span class="c1">#metodos para insertar datos en cada una de las tablas</span>
+
+<div class="viewcode-block" id="metodosBase.insertar_datos_clientes"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.insertar_datos_clientes">[documentos]</a>    <span class="k">def</span> <span class="nf">insertar_datos_clientes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dni</span><span class="p">,</span> <span class="n">nome</span><span class="p">,</span><span class="n">fecha</span><span class="p">,</span> <span class="n">telefono</span><span class="p">,</span> <span class="n">direccion</span><span class="p">,</span> <span class="n">codPostal</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para insertar datos na taboa clientes</span>
+<span class="sd">        :param dni: dni do cliente</span>
+<span class="sd">        :param nome: nome do cliente</span>
+<span class="sd">        :param fecha: fecha de nacemento</span>
+<span class="sd">        :param telefono: telefono do cliente</span>
+<span class="sd">        :param direccion: direccion do cliente</span>
+<span class="sd">        :param codPostal: codigo postal do clietne</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">dni</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">nome</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">fecha</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">telefono</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">direccion</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">codPostal</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;insert into clientes (dni, nomeCompleto,fechaNac, telefono, direccion, codPostal) values (?,?,?,?,?,?)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">dni</span><span class="p">,</span> <span class="n">nome</span><span class="p">,</span><span class="n">fecha</span><span class="p">,</span> <span class="n">telefono</span><span class="p">,</span> <span class="n">direccion</span><span class="p">,</span> <span class="n">codPostal</span><span class="p">))</span>
+
+                <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="metodosBase.insertar_datos_coches"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.insertar_datos_coches">[documentos]</a>    <span class="k">def</span> <span class="nf">insertar_datos_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matricula</span><span class="p">,</span> <span class="n">marca</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">km</span><span class="p">,</span> <span class="n">ano</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">clase</span><span class="p">,</span> <span class="n">automatico</span><span class="p">,</span> <span class="n">motor</span><span class="p">,</span> <span class="n">caballos</span><span class="p">,</span> <span class="n">vendido</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para insertar datos na taboa coches</span>
+<span class="sd">        :param matricula: matricula do coche</span>
+<span class="sd">        :param marca: marca do coche</span>
+<span class="sd">        :param modelo: modelo do coche</span>
+<span class="sd">        :param km: kilometrajo do coche no momento da compra</span>
+<span class="sd">        :param ano: ano de matriculacion do coche</span>
+<span class="sd">        :param precio: precio de venda do coche</span>
+<span class="sd">        :param clase: categoria do coche , vai dende a (ultracompacto) ata todoterrenos</span>
+<span class="sd">        :param automatico: booleano, si e true o coche ten transmision automatica, se e false non</span>
+<span class="sd">        :param motor: cilindrada do coche</span>
+<span class="sd">        :param caballos: caballaxe do coche</span>
+<span class="sd">        :param vendido: os coches con este booleano a true non estan dispoñibles para a sua venda</span>
+<span class="sd">        :return: True en caso de que se fixera todo ben , false en caso de ocorrer un erro</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">matricula</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">marca</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">modelo</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">km</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">ano</span><span class="o">!=</span><span class="s2">&quot;&quot;</span>
+                    <span class="ow">and</span> <span class="n">precio</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">clase</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">automatico</span><span class="o">!=</span><span class="s2">&quot;&quot;</span>
+                    <span class="ow">and</span> <span class="n">motor</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="ow">and</span> <span class="n">caballos</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">vendido</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;insert into coches (matricula, marca, modelo, </span>
+<span class="s2">                kilometraje, ano, precio, clase, automatico, motor, caballos, vendido) values (?,?,?,?,?, ?, ?,?,?,?,?)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,</span> <span class="n">marca</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">km</span><span class="p">,</span> <span class="n">ano</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">clase</span><span class="p">,</span> <span class="n">automatico</span><span class="p">,</span> <span class="n">motor</span><span class="p">,</span> <span class="n">caballos</span><span class="p">,</span> <span class="n">vendido</span><span class="p">))</span>
+
+                <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="c1">#para indicar que non hubo erros, devolvemos unha variable booleana</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span>
+            <span class="c1"># se hubo erro devolvemos false</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="metodosBase.insertar_datos_ventas"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.insertar_datos_ventas">[documentos]</a>    <span class="k">def</span> <span class="nf">insertar_datos_ventas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matricula</span><span class="p">,</span> <span class="n">dni</span><span class="p">,</span> <span class="n">fecha</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para insertar datos na taboa de ventas</span>
+<span class="sd">        :param matricula: matricula do coche vendido</span>
+<span class="sd">        :param dni: dni do cliente que adquiriu o coche</span>
+<span class="sd">        :param fecha: fecha na que se vendeu o vehiculo</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;insert into ventas (matricula, dni, fecha) values (?,?,?)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,</span> <span class="n">dni</span><span class="p">,</span> <span class="n">fecha</span><span class="p">))</span>
+            <span class="n">numVenta</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;Select MAX(numVenta)AS maximo from ventas&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">numVenta</span>
+
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.insertar_datos_usuarios"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.insertar_datos_usuarios">[documentos]</a>    <span class="k">def</span> <span class="nf">insertar_datos_usuarios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">id</span><span class="p">,</span> <span class="n">contrasinal</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodos para insertar datos na taboa de usuarios</span>
+<span class="sd">        :param id: identificador de usuario</span>
+<span class="sd">        :param contrasinal: contrasinal para acceder ao sistema</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;insert into usuarios (id, contrasinal) values (?,?)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">contrasinal</span><span class="p">))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span></div>
+
+    <span class="c1">#metodos para borrar datos en cada una de las tablas</span>
+
+<div class="viewcode-block" id="metodosBase.borrar_datos_clientes"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.borrar_datos_clientes">[documentos]</a>    <span class="k">def</span> <span class="nf">borrar_datos_clientes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dni</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para borrar os datos da taboa clientes</span>
+<span class="sd">        :param dni: dni do cliente a borrar</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;delete from clientes where dni=(?)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">dni</span><span class="p">,))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroBorrado</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro no borrado de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroBorrado</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.borrar_datos_coches"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.borrar_datos_coches">[documentos]</a>    <span class="k">def</span> <span class="nf">borrar_datos_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matricula</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para borrar entradas da taboa coches</span>
+<span class="sd">        :param matricula:matricula do coche a borrar</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;delete from coches where matricula=(?)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroBorrado</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro no borrado de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroBorrado</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.borrar_datos_ventas"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.borrar_datos_ventas">[documentos]</a>    <span class="k">def</span> <span class="nf">borrar_datos_ventas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matricula</span><span class="p">,</span> <span class="n">dni</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para borrar datos da taboa ventas</span>
+<span class="sd">        :param matricula: matricula do coche do que queremos borrar os datos</span>
+<span class="sd">        :param dni: dni do cliente</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;delete from ventas where matricula=(?) and dni=(?)&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,</span> <span class="n">dni</span><span class="p">))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroBorrado</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro no borrado de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroBorrado</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.borrar_datos_usuarios"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.borrar_datos_usuarios">[documentos]</a>    <span class="k">def</span> <span class="nf">borrar_datos_usuarios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        borrar datos dos usuarios</span>
+<span class="sd">        :param id: identificador de usuario</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;delete from usuarios where id=(?)&quot;&quot;&quot;</span><span class="p">,(</span><span class="nb">id</span><span class="p">,))</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroBorrado</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro no borrado de datos: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">erroBorrado</span><span class="p">))</span></div>
+
+    <span class="c1">#metodos para modificar os datos en cada unha das taboas</span>
+<div class="viewcode-block" id="metodosBase.modificar_datos_clientes"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.modificar_datos_clientes">[documentos]</a>    <span class="k">def</span> <span class="nf">modificar_datos_clientes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dni</span><span class="p">,</span> <span class="n">nome</span><span class="p">,</span><span class="n">fecha</span><span class="p">,</span> <span class="n">telefono</span><span class="p">,</span> <span class="n">direccion</span><span class="p">,</span> <span class="n">codPostal</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        modificar os datos dun cliente marcado</span>
+<span class="sd">        :param dni: dni do cliente</span>
+<span class="sd">        :param nome: nome do cliente</span>
+<span class="sd">        :param fecha: fecha de nacemento do cliente</span>
+<span class="sd">        :param telefono: telefono do cliente</span>
+<span class="sd">        :param direccion: direccion do cliente</span>
+<span class="sd">        :param codPostal: codigo postal do cliente</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;update clientes set dni=?, nomeCompleto=?,fechaNac=?, telefono=?, direccion=?, codPostal=? where dni=?&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">dni</span><span class="p">,</span> <span class="n">nome</span><span class="p">,</span><span class="n">fecha</span><span class="p">,</span> <span class="n">telefono</span><span class="p">,</span> <span class="n">direccion</span><span class="p">,</span> <span class="n">codPostal</span><span class="p">,</span> <span class="n">dni</span><span class="p">))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.modificar_datos_coches"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.modificar_datos_coches">[documentos]</a>    <span class="k">def</span> <span class="nf">modificar_datos_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matricula</span><span class="p">,</span> <span class="n">marca</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">km</span><span class="p">,</span> <span class="n">ano</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">clase</span><span class="p">,</span> <span class="n">automatico</span><span class="p">,</span> <span class="n">motor</span><span class="p">,</span> <span class="n">caballos</span><span class="p">,</span> <span class="n">vendido</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        modificar datos da taboa de datos coches</span>
+<span class="sd">        :param matricula: matricula do coche a modificar</span>
+<span class="sd">        :param marca: marca do coche a modificar</span>
+<span class="sd">        :param modelo: modelo do coche</span>
+<span class="sd">        :param km: kilometraje do coche</span>
+<span class="sd">        :param ano: ano de matriculacion</span>
+<span class="sd">        :param precio: precio de venta</span>
+<span class="sd">        :param clase: clase do coche</span>
+<span class="sd">        :param automatico: booleano que indica si e automatico(true) ou non (false)</span>
+<span class="sd">        :param motor: cilindrada do coche</span>
+<span class="sd">        :param caballos: potencia do cochen</span>
+<span class="sd">        :param vendido: boolean True o coche xa foi vendido False non</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;update coches set matricula=?, marca=?, modelo=?, kilometraje=?, </span>
+<span class="s2">            ano=?, precio=?, clase=?, automatico=?, motor=?, caballos=?, vendido=? where matricula=? &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,</span> <span class="n">marca</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">km</span><span class="p">,</span> <span class="n">ano</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">clase</span><span class="p">,</span> <span class="n">automatico</span><span class="p">,</span> <span class="n">motor</span><span class="p">,</span> <span class="n">caballos</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span> <span class="n">vendido</span><span class="p">))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.modificar_datoventa_coches"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.modificar_datoventa_coches">[documentos]</a>    <span class="k">def</span> <span class="nf">modificar_datoventa_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span><span class="n">vendido</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para marcar que un coche foi vendido despois de facer esta operacion</span>
+<span class="sd">        :param matricula: matricula do coche a modificar</span>
+<span class="sd">        :param vendido: dato de vendido true ou false</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;update coches set  </span>
+<span class="s2">                vendido=? where matricula=? &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span>
+            <span class="n">vendido</span><span class="p">,</span> <span class="n">matricula</span><span class="p">))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.modificar_datos_ventas"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.modificar_datos_ventas">[documentos]</a>    <span class="k">def</span> <span class="nf">modificar_datos_ventas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">matricula</span><span class="p">,</span> <span class="n">dni</span><span class="p">,</span> <span class="n">fecha</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para modificar os datos sobre a venda dun vehiculo</span>
+<span class="sd">        :param matricula: matricula do coche vendido</span>
+<span class="sd">        :param dni: dni do dono do coche</span>
+<span class="sd">        :param fecha: fecha de venta</span>
+
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;update ventas set matricula=?, dni=?, fecha=? where matricula=? and dni=?&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,</span> <span class="n">dni</span><span class="p">,</span> <span class="n">fecha</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span> <span class="n">dni</span><span class="p">))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.modificar_datos_usuarios"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.modificar_datos_usuarios">[documentos]</a>    <span class="k">def</span> <span class="nf">modificar_datos_usuarios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">id</span><span class="p">,</span> <span class="n">contrasinal</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para modificar os datos dun usuario</span>
+<span class="sd">        :param id: identificador do usuario</span>
+<span class="sd">        :param contrasinal: contrasinal do usuario</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;update usuarios set id=?, contrasinal=? where id=?&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">contrasinal</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">bbdd</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroInsercion</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na inserción de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroInsercion</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.compobrar_usuarios"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.compobrar_usuarios">[documentos]</a>    <span class="k">def</span> <span class="nf">compobrar_usuarios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">contrasinal</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para comprobar que o usuario introducido e contrasinal coincida con algun da base de datos</span>
+<span class="sd">        :param id: identificador insertado</span>
+<span class="sd">        :param contrasinal: contrasinal insertado</span>
+<span class="sd">        :return: True en caso de que exista o usuario, False en caso contrario</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select count(*) from usuarios where id=? and contrasinal=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">contrasinal</span><span class="p">))</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">resultados</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="n">resultados</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+
+        <span class="k">except</span> <span class="n">dbapi2</span><span class="o">.</span><span class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroConsulta</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro na consulta de datos: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">erroConsulta</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="metodosBase.listar_coches"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.listar_coches">[documentos]</a>    <span class="k">def</span> <span class="nf">listar_coches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para listar os coches todos da base de datos que non haxan sido vendidos, co fin de mostralos no programa para a sua venta</span>
+<span class="sd">        :return: Coches, lista de todos os coches dispoñibles na base de datos</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">resultados</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from coches where vendido=0&quot;</span><span class="p">)</span>
+        <span class="n">coches</span> <span class="o">=</span><span class="nb">tuple</span> <span class="p">(</span><span class="n">resultados</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">coches</span></div>
+
+<div class="viewcode-block" id="metodosBase.listar_coches_matricula"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.listar_coches_matricula">[documentos]</a>    <span class="k">def</span> <span class="nf">listar_coches_matricula</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matricula</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para listar os coches por unha matricula determinada</span>
+<span class="sd">        :param matricula: matricula do coche a encontrar</span>
+<span class="sd">        :return: Coches, lista cos datos da coincidencia atopada</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from coches where matricula=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,))</span>
+        <span class="n">coches</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">resultados</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">coches</span></div>
+
+<div class="viewcode-block" id="metodosBase.listar_clientes"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.listar_clientes">[documentos]</a>    <span class="k">def</span> <span class="nf">listar_clientes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para listar os clientes da base de datos</span>
+<span class="sd">        :return: Clientes, lista cos datos do clientes</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from clientes&quot;</span><span class="p">)</span>
+        <span class="n">clientes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">resultados</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clientes</span></div>
+
+<div class="viewcode-block" id="metodosBase.listar_clientes_dni"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.listar_clientes_dni">[documentos]</a>    <span class="k">def</span> <span class="nf">listar_clientes_dni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dni</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para listar os clientes cun dni concreto</span>
+<span class="sd">        :param dni: dni do cliente a buscar</span>
+<span class="sd">        :return: clientes, lista cos datos do cliente</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from clientes where dni=?&quot;</span><span class="p">,(</span><span class="n">dni</span><span class="p">,))</span>
+        <span class="n">clientes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">resultados</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clientes</span></div>
+
+<div class="viewcode-block" id="metodosBase.listar_ventas_marca"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.listar_ventas_marca">[documentos]</a>    <span class="k">def</span> <span class="nf">listar_ventas_marca</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        metodo para listar as ventas agrupandoas pola marca</span>
+<span class="sd">        :return: coches, lista cos datos dos coches</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">resultados</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select count (matricula), marca from coches where vendido=1 group by marca&quot;</span><span class="p">)</span>
+        <span class="n">coches</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span>
+
+
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">coches</span></div>
+
+<div class="viewcode-block" id="metodosBase.listar_ventas_anoMatricula"><a class="viewcode-back" href="../../baseDatos.html#baseDatos.metodosBase.metodosBase.listar_ventas_anoMatricula">[documentos]</a>    <span class="k">def</span> <span class="nf">listar_ventas_anoMatricula</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        lista de coches agrupado polo ano de matriculacion</span>
+<span class="sd">        :return: coches, lista de datos dos coches agrupados por ano</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">metodosBase</span><span class="o">.</span><span class="n">conectar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">resultados</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select count (matricula), ano from coches where vendido=1 group by ano&quot;</span><span class="p">)</span>
+        <span class="n">coches</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">resultados</span><span class="p">)</span>
+
+
+        <span class="n">metodosBase</span><span class="o">.</span><span class="n">cerrar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">coches</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Documentacion proxecto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guia_uso.html">Guia de uso para su evaluación</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">projectCompraVenta</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Código de módulo</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jose.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,353 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Guia de uso para su evaluación &#8212; documentación de Documentacion proxecto - 0.0.1</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="projectCompraVenta" href="modules.html" />
+    <link rel="prev" title="Documentación Proyecto Compra-venta" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="guia-de-uso-para-su-evaluacion">
+<h1>Guia de uso para su evaluación<a class="headerlink" href="#guia-de-uso-para-su-evaluacion" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Menu de enlaces:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#login">Login</a></li>
+<li><a class="reference internal" href="#ventana-de-coches">Ventana de coches</a></li>
+<li><a class="reference internal" href="#ventana-de-clientes">Ventana de clientes</a></li>
+<li><a class="reference internal" href="#estructura-de-la-base-de-datos">Estructura de la base de datos</a></li>
+</ul>
+<div class="section" id="login">
+<h2>Login<a class="headerlink" href="#login" title="Enlazar permanentemente con este título">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Usuario: <em>1</em></li>
+<li>Contraseña: <em>abc123.</em></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="uso-de-las-ventas">
+<h2>Uso de las ventas<a class="headerlink" href="#uso-de-las-ventas" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="ventana-de-coches">
+<h3>Ventana de coches<a class="headerlink" href="#ventana-de-coches" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En la ventana de coches podremos realizar cualquier accion sobre ellos
+La ventana esta estructurada con un Stack switcher, compuesto de dos                                                                      |
+ventanas, la ventana Compra, para añadir coches, y venta para el resto
+de acciones.</p>
+<div class="section" id="comprar">
+<h4>comprar<a class="headerlink" href="#comprar" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Ventana donde añadiremos coches a la base de datos.
+En ella debemos insertar todos los datos, en caso contrario nos
+saltara un aviso.
+Podremos limpiar todos los campos en caso de necesitarlo.</p>
+</div>
+<div class="section" id="vender">
+<h4>vender<a class="headerlink" href="#vender" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>En esta ventana tenemos una lista de los coches disponibles para su venta.
+No están todos los de la base de datos, dado que los coches ya vendidos los
+seguimos almacenando para otros usos.
+Podemos filtrar la lista de coches seleccionando una categoria en el combo box
+de filtro e insertando un valor.
+<em>Para volver a listar el contenido solo es necesario darle al botón filtrar con
+el campo del valor vacio</em></p>
+<p>Para modificar una entrada es necesario seguir lo siguientes pasos:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Pulsar el botón modificar.</li>
+<li>Seleccionar la fila a modificar</li>
+<li>Cambiar el campo directamente en la tabla</li>
+<li>Al pulsar intro el campo se actualizara directamente</li>
+</ol>
+</div></blockquote>
+<p>El botón informe generará automaticamente (avisandonos de ello), un informe
+con datos de las ventas de coches, tanto por marcas como por año de matricula.
+El informe estará disponible automaticamente en la carpeta ventanas del proyecto.</p>
+<p>El botón vender abrirá una nueva ventana que procederé a explicar a continuación.</p>
+</div>
+<div class="section" id="ventana-venta-de-coches">
+<h4>ventana venta de coches<a class="headerlink" href="#ventana-venta-de-coches" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>En esta ventana procederemos a asignar una venta a un cliente, rellenando una
+entrada en la base de datos, dado lo siguiente:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>El campo matrícula se asignará automaticamente por la fila seleccionada.Para vender otro coche se recomienda empezar el proceso desde la ventana anterior.</li>
+<li>El Dni del cliente tiene que existir en la base de datos, por tanto si no esta registrado hacerlo con anterioridad.</li>
+<li>La fecha, sera en formato DD/MM/AA , para facilitar esto, dispones de un calendario para pulsar sobre el dia que autocompleta el campo.</li>
+<li><em>Al pulsar sobre vender se generará automaticamente la factura, disponible en la carpeta ventanas del proyecto</em></li>
+</ol>
+</div></blockquote>
+<p><strong>Nota importante: La factura contiene una imagen, que para su correcta inserción necesita la ruta absoluta, por tanto para funcionar bien tendrá que ser modificada.</strong></p>
+<p>La ventana fue diseñada en Glade para abordar asi  todo el temario del curso.</p>
+</div>
+</div>
+<div class="section" id="ventana-de-clientes">
+<h3>Ventana de clientes<a class="headerlink" href="#ventana-de-clientes" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Funcionamiento similar a la ventana de coches.
+Tiene un stack con la ventana Añadir y Gestión.
+La ventana añadir funcionará igual que en los coches, pudiendo limpiar y salir, y necesitando que ningún campo este en blanco.
+La ventana gestión será igual que en los coches, cambiando en este caso un botón para borrar la entrada.
+Los coches no podrán ser eliminados, pero los clientes si.</p>
+</div>
+<div class="section" id="estructura-de-la-base-de-datos">
+<h3>Estructura de la base de datos<a class="headerlink" href="#estructura-de-la-base-de-datos" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En las siguientes tablas se muestra la estructura de la base de datos:</p>
+<ul class="simple">
+<li>Coches</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="10%" />
+<col width="12%" />
+<col width="8%" />
+<col width="8%" />
+<col width="6%" />
+<col width="11%" />
+<col width="6%" />
+<col width="9%" />
+<col width="8%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Matricula</th>
+<th class="head">Marca</th>
+<th class="head">Modelo</th>
+<th class="head">Kilometraje</th>
+<th class="head">Año</th>
+<th class="head">Precio</th>
+<th class="head">Clase</th>
+<th class="head">Automatico</th>
+<th class="head">Motor</th>
+<th class="head">Caballos</th>
+<th class="head">Vendido</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>texto</td>
+<td>texto</td>
+<td>texto</td>
+<td>Numero</td>
+<td>Entero</td>
+<td>Decimal</td>
+<td>texto</td>
+<td>boolean</td>
+<td>texto</td>
+<td>numero</td>
+<td>boolean</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Clientes</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">DNI</th>
+<th class="head">Nombre</th>
+<th class="head">F.Nac.</th>
+<th class="head">Telefono</th>
+<th class="head">Dirección</th>
+<th class="head">c.postal</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>texto</td>
+<td>texto</td>
+<td>texto</td>
+<td>texto</td>
+<td>texto</td>
+<td>texto</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>ventas</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="33%" />
+<col width="22%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">numero</th>
+<th class="head">matricula</th>
+<th class="head">dni</th>
+<th class="head">fecha</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>texto</td>
+<td>texto</td>
+<td>texto</td>
+<td>texto</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>Usuarios</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ID</th>
+<th class="head">PASS</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>texto</td>
+<td>texto</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>ID</strong></th>
+<th class="head"><strong>PASS</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>ABC123.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="hipervinculo">
+<h4>Hipervínculo<a class="headerlink" href="#hipervinculo" title="Enlazar permanentemente con este título">¶</a></h4>
+<p><a class="reference external" href="https://www.github.com/josedominguezmartinan/proxectoDi">Repositorio</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">download:</th><td class="field-body"><a class="reference external" href="_static/exemplo.rst">Descargar esta guia</a></td>
+</tr>
+</tbody>
+</table>
+<img alt="_images/logo.jpg" class="align-left" src="_images/logo.jpg" />
+<p>COCHESJOSE S.L.</p>
+<p>VENDIENDO COCHES DESDE 1994</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Documentacion proxecto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Guia de uso para su evaluación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#login">Login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uso-de-las-ventas">Uso de las ventas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">projectCompraVenta</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="capítulo anterior">Documentación Proyecto Compra-venta</a></li>
+      <li>Next: <a href="modules.html" title="próximo capítulo">projectCompraVenta</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jose.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/guia_uso.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

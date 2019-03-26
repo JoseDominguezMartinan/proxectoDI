@@ -10,6 +10,10 @@ from platy import informeAlbaran
 class Venta():
 
     def __init__(self, matricula):
+        '''
+        constructor, aqui se xenera a caixa cos widgets desta ventá, recibe a matricula do coche a vender para asi autocompletar ese campo
+        :param matricula: matricula do coche a vender
+        '''
         builder=Gtk.Builder()
         builder.add_from_file("ventana.glade")
 
@@ -46,10 +50,20 @@ class Venta():
         self.fiestra.show_all()
 
     def on_calendario_day_selected_double_click(self, evt):
+        '''
+        metodo para completar o campo fecha tras facer doble click no widget calendario que dispon a ventá
+        :param evt: evento
+        :return: None
+        '''
         year, month, day=self.calendario.get_date()
         self.entryFecha.set_text(str(day)+"/"+str(month)+"/"+str(year))
 
     def on_botonVender_clicked(self,evt):
+        '''
+        metodo que salta ao darlle o boton vender, modifica o coche na taboa coches para polo como vendido, inserta a entrada en ventas, e xenera unha factura
+        :param evt:
+        :return: None
+        '''
 
         matricula=self.entryMatricula.get_text()
         dni=self.entryDni.get_text()
@@ -84,9 +98,19 @@ class Venta():
 
 
     def on_botonLimpiar_clicked(self,evt):
+        '''
+        metodo para limpar os campos de entrada de texto do formulario
+        :param evt:
+        :return: None
+        '''
         self.entryMatricula.set_text("")
         self.entryDni.set_text("")
         self.entryFecha.set_text("")
 
     def on_botonSalir_clicked(self,evt):
+        '''
+        metodo para cerrar a ventá actual
+        :param evt:
+        :return: None
+        '''
         self.fiestra.destroy()
